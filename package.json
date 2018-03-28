@@ -1,0 +1,24 @@
+{
+  "name": "github-electron",
+  "version": "0.1.0",
+  "description": "GitHub desktop client built with Electron",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forrest-wilson/github-electron.git"
+  },
+  "keywords": [
+    "electron",
+    "github",
+    "js"
+  ],
+  "author": "Forrest Wilson-Jennings",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/forrest-wilson/github-electron/issues"
+  },
+  "homepage": "https://github.com/forrest-wilson/github-electron#readme"
+}
