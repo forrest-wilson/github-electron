@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GitHub Sort</title>
+</head>
+<body>
+    <ul id="json"></ul>
+    <script>
+        const electron = require("electron");
+        const {ipcRenderer} = electron;
+        const json = document.getElementById("json");
+
+        ipcRenderer.on("githubData", (e, item) => {
+            console.log(item);
+            item.forEach(element => {
+                const li = document.createElement("li");
+                const textNode = document.createTextNode(element.url);
+                li.appendChild(textNode);
+                json.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

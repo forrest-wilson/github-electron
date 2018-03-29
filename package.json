@@ -4,7 +4,7 @@
   "description": "GitHub desktop client built with Electron",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/forrest-wilson/github-electron/issues"
   },
-  "homepage": "https://github.com/forrest-wilson/github-electron#readme"
+  "homepage": "https://github.com/forrest-wilson/github-electron#readme",
+  "dependencies": {
+    "electron": "^1.8.4"
+  }
 }
