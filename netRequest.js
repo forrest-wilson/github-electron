@@ -1,8 +1,6 @@
 const {net} = require("electron")
 
-exports.getUsername = (username, callback) => {
-    let request = net.request(`https://api.github.com/users/${username}`)
-
+function performRequest(request, callback) {
     request.on("response", (response) => {
         let compiledChunks = ""
 
@@ -11,8 +9,23 @@ exports.getUsername = (username, callback) => {
         })
 
         response.on("end", () => {
-            if (response.statusCode === 200) callback(JSON.parse(compiledChunks))
+            let compiledData = JSON.parse(compiledChunks)
+            if (compiledData.message === "Not Found") {
+                callback(false, compiledData)
+                return
+            }
+            if (response.statusCode === 200) callback(true, compiledData)
         })
     })
     request.end()
+}
+
+exports.getUsername = (username, callback) => {
+    let request = net.request(`https://api.github.com/users/${username}`)
+    performRequest(request, callback)
+}
+
+exports.getRepos = (url, callback) => {
+    let request = net.request(url)
+    performRequest(request, callback)
 }

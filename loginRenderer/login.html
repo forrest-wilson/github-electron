@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./login.css">
 </head>
 <body>
     <section class="section">
@@ -19,10 +20,26 @@
         </div>
         <div class="field">
             <p class="control">
-                <button class="button is-primary" id="usernameSearch">Submit</button>
+                <button class="button is-primary full-width" id="usernameSearch">Submit</button>
             </p>
         </div>
     </section>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="content">
+                <h1 class="has-text-centered">Not Found!</h1>
+                <p class="has-text-centered">We couldn't find that username. Please try again.</p>
+            </div>
+            <div class="control is-grouped">
+                <p class="control has-text-centered">
+                    <a id="closeErrorModal" class="button is-primary full-width">Ok</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Close modal -->
 </body>
 <script>
     $ = require("jquery")

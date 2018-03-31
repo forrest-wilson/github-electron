@@ -1,19 +1,20 @@
 const {BrowserWindow} = require("electron")
 
-exports.win
+exports.loginWin
 
 exports.createWindow = () => {
-    this.win = new BrowserWindow({
+    this.loginWin = new BrowserWindow({
         width: 400,
         height: 300,
-        resizable: false
+        resizable: false,
+        frame: false
     })
 
-    this.win.webContents.openDevTools()
+    this.loginWin.webContents.openDevTools()
 
-    this.win.loadURL(`file://${__dirname}/loginRenderer/login.html`)
+    this.loginWin.loadURL(`file://${__dirname}/loginRenderer/login.html`)
 
-    this.win.on("closed", () => {
-        this.win = null
+    this.loginWin.on("closed", () => {
+        this.loginWin = null
     })
 }

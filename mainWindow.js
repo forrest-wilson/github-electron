@@ -1,20 +1,20 @@
 const {BrowserWindow} = require("electron")
 
-exports.win
+exports.mainWin
 
 exports.createWindow = () => {
-    this.win = new BrowserWindow({
-        minWidth: 700,
+    this.mainWin = new BrowserWindow({
+        minWidth: 750,
         minHeight: 500,
         width: 1000,
         height: 700
     })
 
-    this.win.webContents.openDevTools()
+    this.mainWin.webContents.openDevTools()
 
-    this.win.loadURL(`file://${__dirname}/renderer/main.html`)
+    this.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`)
 
-    this.win.on("closed", () => {
-        this.win = null
+    this.mainWin.on("closed", () => {
+        this.mainWin = null
     })
 }

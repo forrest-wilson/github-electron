@@ -1,18 +1,28 @@
-const {app, ipcMain} = require("electron")
+const {app, ipcMain, remote} = require("electron")
 const mainWindow = require("./mainWindow")
 const loginWindow = require("./loginWindow")
 const netRequest = require("./netRequest.js")
+const Config = require("electron-config")
+const config = new Config()
+const userProps = "userProps"
 
 // Enables electron-reload
 require("electron-reload")(__dirname)
 
 ipcMain.on("username", (e, username) => {
-    netRequest.getUsername(username, (data) => {
-        e.sender.send("username-success", data)
+    netRequest.getUsername(username, (state, data) => {
+        if (state) {
+            config.set(userProps, data)
+        }
+        
+        e.sender.send("username:response", state)
+        // loginWindow.loginWin.close()
+        // mainWindow.createWindow()
     })
 })
 
 app.on("ready", () => {
+    // (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow()
     loginWindow.createWindow()
 })
 
