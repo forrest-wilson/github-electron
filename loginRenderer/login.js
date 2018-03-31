@@ -1,4 +1,5 @@
 const {ipcRenderer} = require("electron")
+let win = require("../loginWindow")
 
 $(document).on("keydown", (e) => {
     if (e.key === "Enter") $("#usernameSearch").click()
@@ -10,5 +11,6 @@ $("#usernameSearch").on("click", () => {
 })
 
 ipcRenderer.on("username-success", (e, data) => {
-    console.log(data)
+    win.quit()
+    win === null
 })
