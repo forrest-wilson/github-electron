@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search GitHub Username</title>
+
+    <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="field">
+            <p class="control has-icon has-icon-left">
+                <input type="text" class="input is-medium" id="usernameInput" placeholder="Enter GitHub Username">
+                <span class="icon">
+                    <i class="fa fa-github"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control">
+                <button class="button is-primary" id="usernameSearch">Submit</button>
+            </p>
+        </div>
+    </section>
+</body>
+<script>
+    $ = require("jquery")
+    require("./login.js")
+</script>
+</html>

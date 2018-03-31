@@ -1,64 +1,25 @@
-const electron = require("electron");
-const {app, BrowserWindow, net, ipcMain} = electron;
-const path = require("path");
-const url = require("url");
+const {app, ipcMain} = require("electron")
+const mainWindow = require("./mainWindow")
+const loginWindow = require("./loginWindow")
+const netRequest = require("./netRequest.js")
 
-const apiUrl = {
-    base: "https://api.github.com/users/",
-    user: "forrest-wilson"
-}
+// Enables electron-reload
+require("electron-reload")(__dirname)
 
-// Global reference to the mainWindow object
-let mainWindow;
-
-// Creates the main window
-function createWindow() {
-    mainWindow = new BrowserWindow({width: 1500, height: 1000, backgroundColor: "#2e2c29", show: true});
-
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, "mainWindow.html"),
-        protocol: "file:",
-        slashes: true
-    }));
-
-    mainWindow.webContents.openDevTools();
-
-    mainWindow.on("closed", () => {
-        mainWindow = null;
-    });
-}
-
-// Calls the GitHub API
-function getGithubData() {
-    const request = net.request(apiUrl.base + apiUrl.user + "/repos?type=all");
-    request.on("response", (response) => {
-        let compiledChunks = "";
-
-        response.on("data", (chunk) => {
-            compiledChunks += `${chunk}`;
-        });
-
-        response.on("end", () => {
-            let parsedChunks = JSON.parse(compiledChunks);
-            mainWindow.webContents.send("githubData", parsedChunks);
-        });
-    });
-    request.end();
-}
+ipcMain.on("username", (e, username) => {
+    netRequest.getUsername(username, (data) => {
+        e.sender.send("username-success", data)
+    })
+})
 
 app.on("ready", () => {
-    createWindow();
-    getGithubData();
-});
+    loginWindow.createWindow()
+})
 
 app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
-});
+    if (process.platform !== "darwin") app.quit()
+})
 
 app.on("activate", () => {
-    if (mainWindow === null) {
-        createWindow();
-    }
-});
+    if (mainWindow === null) mainWindow.createWindow()
+})
