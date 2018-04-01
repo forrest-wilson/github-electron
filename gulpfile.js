@@ -25,5 +25,5 @@ gulp.task("sass", () => {
 
 gulp.task("default", ["jshint", "sass"], (cb) => {
     gulp.watch(["**/*.js", "!node_modules/**"], ["jshint"], cb);
-    gulp.watch(["**/sass/*.scss", "!node_modules/**"], ["sass"], cb);
+    gulp.watch("./assets/stylesheets/sass/**/*.scss", ["sass"], cb);
 });
