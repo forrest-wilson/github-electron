@@ -31,7 +31,10 @@
   "devDependencies": {
     "electron-reload": "^1.2.2",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-jshint": "^2.1.0",
+    "gulp-sass": "^3.2.1",
+    "gulp-sourcemaps": "^2.6.4",
     "jshint": "^2.9.5"
   }
 }
