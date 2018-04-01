@@ -13,7 +13,7 @@ ipcRenderer.on("username:response", (e, state) => {
     }
 
     console.log("Username found");
-})
+});
 
 //**** Event Listeners ****//
 

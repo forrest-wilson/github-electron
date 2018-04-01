@@ -23,9 +23,9 @@ function performRequest(request, callback) {
 exports.getUsername = (username, callback) => {
     let request = net.request(`https://api.github.com/users/${username}`);
     performRequest(request, callback);
-}
+};
 
 exports.getRepos = (url, callback) => {
     let request = net.request(url);
     performRequest(request, callback);
-}
+};

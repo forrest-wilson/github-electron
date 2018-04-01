@@ -1,6 +1,6 @@
 const {BrowserWindow} = require("electron");
 
-exports.mainWin;
+exports.mainWin = null;
 
 exports.createWindow = () => {
     this.mainWin = new BrowserWindow({
@@ -17,4 +17,4 @@ exports.createWindow = () => {
     this.mainWin.on("closed", () => {
         this.mainWin = null;
     });
-}
+};
