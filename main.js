@@ -16,14 +16,14 @@ ipcMain.on("username", (e, username) => {
         }
         
         e.sender.send("username:response", state);
-        // loginWindow.loginWin.close();
-        // mainWindow.createWindow();
+        loginWindow.loginWin.close();
+        mainWindow.createWindow();
     });
 });
 
 app.on("ready", () => {
-    // (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
-    loginWindow.createWindow();
+    (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
+    // loginWindow.createWindow();
 });
 
 app.on("window-all-closed", () => {
@@ -31,5 +31,5 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    if (mainWindow.mainWin === null) mainWindow.createWindow();
+    if (loginWindow.mainWin === null) loginWindow.createWindow();
 });
