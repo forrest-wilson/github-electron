@@ -29,4 +29,8 @@
         background-color: $selectedDarkColor;
         cursor: pointer;
     }
+
+    &:first-child {
+        border-bottom: 2px solid $darkBorder;
+    }
 }
