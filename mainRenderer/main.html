@@ -5,15 +5,41 @@
     <title>GitHub Sort</title>
 
     <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
 </head>
 <body>
     <div class="app-columns">
-        <aside class="app-column static">
-            <div><p>Here's some text</p></div>
-            <div><p>Here's some text</p></div>
-            <div><p>Here's some text</p></div>
-        </aside>
+        <nav class="app-column static nav-bg">
+            <div class="app-nav-item selected">
+                <aside class="img">
+                    <img id="navImg" src="../assets/images/avatar.png" alt="">
+                </aside>
+                <span id="navName" class="nav-title"></span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+            <div class="app-nav-item">
+                <span class="nav-title">Repositories</span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+            <div class="app-nav-item">
+                <span class="nav-title">Following</span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+            <div class="app-nav-item">
+                <span class="nav-title">Followers</span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+        </nav>
+        <main class="app-column main"></main>
     </div>
 </body>
 <script>
