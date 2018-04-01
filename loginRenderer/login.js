@@ -22,11 +22,26 @@ $(document).on("keydown", (e) => {
     if (e.key === "Enter") $("#usernameSearch").click();
 });
 
+$("#usernameInput").on("keyup", () => {
+    let search = $("#usernameInput").val();
+
+    if (search !== "") {
+        $("#usernameInput").removeClass("is-danger");
+        $("#usernameWarning").addClass("is-hidden");
+    } else {
+        $("#usernameInput").addClass("is-danger");
+        $("#usernameWarning").removeClass("is-hidden");
+    }
+});
+
 // Click Events
 $("#usernameSearch").click(() => {
     let usernameToSearch = $("#usernameInput").val();
-    if (usernameToSearch) ipcRenderer.send("username", usernameToSearch);
-    $("#usernameSearch").addClass("is-loading");
+
+    if (usernameToSearch !== "") {
+        ipcRenderer.send("username", usernameToSearch);
+        $("#usernameSearch").addClass("is-loading");
+    }
 });
 
 $("#makeGithubAccountLink").click((e) => {
