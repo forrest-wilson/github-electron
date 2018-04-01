@@ -1,4 +1,4 @@
-const {app, ipcMain, remote} = require("electron");
+const {app, ipcMain} = require("electron");
 const mainWindow = require("./mainWindow");
 const loginWindow = require("./loginWindow");
 const netRequest = require("./netRequest.js");
