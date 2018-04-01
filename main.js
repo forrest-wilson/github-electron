@@ -2,8 +2,7 @@ const {app, ipcMain, remote} = require("electron");
 const mainWindow = require("./mainWindow");
 const loginWindow = require("./loginWindow");
 const netRequest = require("./netRequest.js");
-const Config = require("electron-config");
-const config = new Config();
+const config = require("./config");
 const userProps = "userProps";
 
 // Enables electron-reload
