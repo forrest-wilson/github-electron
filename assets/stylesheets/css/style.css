@@ -8,10 +8,10 @@ body {
   display: -ms-flexbox;
   display: flex; }
   .app-columns .app-column {
-    height: 100%;
-    border-right: 2px solid #1e1e1e; }
+    height: 100%; }
   .app-columns .static {
-    width: 250px; }
+    width: 250px;
+    border-right: 2px solid #1e1e1e; }
   .app-columns .main {
     -webkit-box-flex: 1;
     -ms-flex: 1;
