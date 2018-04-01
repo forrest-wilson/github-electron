@@ -1,9 +1,16 @@
 .app-columns {
+    height: 100%;
+    display: flex;
+
     .app-column {
         height: 100%;
     }
 
     .static {
-        width: 250px !important;
+        width: 250px;
+    }
+
+    .main {
+        flex: 1;
     }
 }

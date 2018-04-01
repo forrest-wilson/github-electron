@@ -1,1 +1,32 @@
 //**** Navigation Styling ****//
+
+.app-nav-item {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    .img {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        flex-shrink: 0;
+
+        & > img {
+            border-radius: 50%;
+        }
+    }
+
+    .nav-title {
+        flex: 1;
+        align-self: center;
+        word-break: break-word;
+    }
+
+    &.selected,
+    &:hover {
+        background-color: $selectedDarkColor;
+        cursor: pointer;
+    }
+}
