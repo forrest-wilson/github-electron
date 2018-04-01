@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
+
+    <link rel="import" href="../sections/repositories.html">
 </head>
 <body>
     <div class="app-columns">
         <nav class="app-column static nav-bg">
-            <div class="app-nav-item selected">
+            <div class="app-nav-item selected" data-request="profile">
                 <aside class="img">
                     <img id="navImg" src="../assets/images/avatar.png" alt="">
                 </aside>
@@ -20,19 +22,19 @@
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item">
+            <div class="app-nav-item" data-request="repository">
                 <span class="nav-title">Repositories</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item">
+            <div class="app-nav-item" data-request="following">
                 <span class="nav-title">Following</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item">
+            <div class="app-nav-item" data-request="followers">
                 <span class="nav-title">Followers</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
@@ -43,7 +45,8 @@
     </div>
 </body>
 <script>
-    $ = require("jquery")
-    require("./app.js")
+    $ = require("jquery");
+    require("./importer.js");
+    require("./app.js");
 </script>
 </html>
