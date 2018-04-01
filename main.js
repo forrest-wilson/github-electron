@@ -21,6 +21,16 @@ ipcMain.on("username", (e, username) => {
     });
 });
 
+// Sent from app.js
+ipcMain.on("repo", (e, reposUrl) => {
+    netRequest.getRepos(reposUrl, (state, repos) => {
+        if (state) {
+            config.set("repos", repos);
+            e.sender.send("repo:response", repos);
+        }
+    });
+});
+
 app.on("ready", () => {
     (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
     // loginWindow.createWindow();
