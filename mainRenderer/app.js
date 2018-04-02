@@ -4,13 +4,12 @@ const userProps = config.get("userProps");
 const repos = config.get("repos");
 const netRequest = require("../netRequest");
 
-console.log(userProps);
-
 //**** Helper Functions ****//
+
 function compileRepoTemplate(repos) {
     console.log(repos);
     repos.forEach(repo => {
-        const repoTemplate = `<div class="repo inner">
+        const repoTemplate = `<div class="repo">
                                 <div>
                                     <span>${repo.name}</span> - 
                                     <span>${repo.language}</span>
@@ -23,6 +22,10 @@ function compileRepoTemplate(repos) {
 
         $("#reposWrapper").append(el);
     });
+}
+
+function compileProfileTemplate(props) {
+    console.log(props);
 }
 
 $("#navImg").attr("src", userProps.avatar_url);
@@ -38,20 +41,31 @@ ipcRenderer.on("repo:response", (e, repos) => {
 
 $(".app-nav-item").click(function() {
     let dataRequest = $(this).data("request");
+    console.log(dataRequest);
 
     // Removes the selected class from the nav item
     $(".app-nav-item.selected").removeClass("selected");
+
+    // Removes the current showing section
+    $(".section.is-showing").removeClass("is-showing");
+
+    // Shows the corresponding section based on app-nav-item selection
+    $(`#${dataRequest}Section`).addClass("is-showing");
 
     // Adds the selected class to the clicked element
     $(this).addClass("selected");
 
     switch(dataRequest) {
-        case "repository":
+        case "repositories":
             if (repos) {
-                $(`#${dataRequest}Section`);
                 compileRepoTemplate(repos);
             } else {
                 ipcRenderer.send("repo", userProps.repos_url);
+            }
+            break;
+        case "profile":
+            if (userProps) {
+                compileProfileTemplate(userProps);
             }
             break;
     }
