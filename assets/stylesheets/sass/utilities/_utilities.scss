@@ -1,3 +1,23 @@
 .inner {
     padding: 25px;
 }
+
+.section {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transform: translateX(-15px);
+    transition: 300ms ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+
+    &.is-showing {
+        transform: translateX(0px);
+        visibility: visible;
+        opacity: 1;
+    }
+}

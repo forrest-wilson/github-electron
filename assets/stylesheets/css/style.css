@@ -53,17 +53,28 @@ body {
   .app-nav-item:first-child {
     border-bottom: 2px solid #1e1e1e; }
 
-.repositories {
+.inner {
+  padding: 25px; }
+
+.section {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   overflow-x: hidden;
-  overflow-y: auto; }
-
-.inner {
-  padding: 25px; }
+  overflow-y: auto;
+  -webkit-transform: translateX(-15px);
+  transform: translateX(-15px);
+  -webkit-transition: 300ms ease-in-out;
+  transition: 300ms ease-in-out;
+  visibility: hidden;
+  opacity: 0; }
+  .section.is-showing {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    visibility: visible;
+    opacity: 1; }
 
 .nav-bg {
   background: #252525; }
