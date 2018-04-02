@@ -10,7 +10,7 @@ exports.createWindow = () => {
         minHeight: 500,
         width: 1000,
         height: 700
-    }
+    };
 
     let storedSettings = config.get(mainWinPosition);
 
