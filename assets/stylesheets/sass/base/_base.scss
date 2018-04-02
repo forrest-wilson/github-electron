@@ -4,3 +4,7 @@ html,
 body {
     height: 100%;
 }
+
+::selection {
+    background: rgb(195, 221, 255);
+}
