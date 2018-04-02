@@ -2,27 +2,10 @@ const {ipcRenderer} = require("electron");
 const config = require("../config");
 const userProps = config.get("userProps");
 const repos = config.get("repos");
-const netRequest = require("../netRequest");
+const templateCompiler = require("./templateCompiler");
+const navSelector = "navSelectionID";
 
 //**** Helper Functions ****//
-
-function compileRepoTemplate(repos) {
-    console.log(repos);
-    repos.forEach(repo => {
-        const repoTemplate = `<div class="repo">
-                                <div>
-                                    <span>${repo.name}</span> - 
-                                    <span>${repo.language}</span>
-                                </div>
-                                <button>Clone ${repo.name}</button>
-                            </div>`;
-
-        let doc = new DOMParser().parseFromString(repoTemplate, "text/html");
-        let el = doc.body.firstChild;
-
-        $("#reposWrapper").append(el);
-    });
-}
 
 function compileProfileTemplate(props) {
     console.log(props);
@@ -34,14 +17,14 @@ $("#navName").text(userProps.name);
 //**** IPC ****//
 
 ipcRenderer.on("repo:response", (e, repos) => {
-    compileRepoTemplate(repos);
+    templateCompiler.compileRepos(repos);
 });
 
 //**** Click Event Handlers ****//
 
-$(".app-nav-item").click(function() {
+$(".app-nav-item").on("click", function() {
     let dataRequest = $(this).data("request");
-    console.log(dataRequest);
+    console.log(`Selected data: ${dataRequest}`);
 
     // Removes the selected class from the nav item
     $(".app-nav-item.selected").removeClass("selected");
@@ -58,7 +41,7 @@ $(".app-nav-item").click(function() {
     switch(dataRequest) {
         case "repositories":
             if (repos) {
-                compileRepoTemplate(repos);
+                templateCompiler.compileRepos(repos);
             } else {
                 ipcRenderer.send("repo", userProps.repos_url);
             }
@@ -69,4 +52,10 @@ $(".app-nav-item").click(function() {
             }
             break;
     }
+
+    // Persist selected nav item
+    config.set(navSelector, `${dataRequest}NavItem`);
 });
+
+// Sets the previous sessions' nav as the selected nav item
+$(`#${config.get(navSelector)}`).trigger("click");
