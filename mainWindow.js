@@ -32,6 +32,7 @@ exports.createWindow = () => {
     });
 
     this.mainWin.on("close", () => {
+        // Update and persist window position
         let size = this.mainWin.getSize();
         let position = this.mainWin.getPosition();
         config.set(mainWinPosition, {x: position[0], y: position[1], width: size[0], height: size[1]});
