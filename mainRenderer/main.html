@@ -14,7 +14,7 @@
 <body>
     <div class="app-columns">
         <nav class="app-column static nav-bg">
-            <div class="app-nav-item selected" data-request="profile">
+            <div id="profileNavItem" class="app-nav-item" data-request="profile">
                 <aside class="img">
                     <img id="navImg" src="../assets/images/avatar.png" alt="">
                 </aside>
@@ -23,19 +23,25 @@
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item" data-request="repositories">
+            <div id="repositoriesNavItem" class="app-nav-item" data-request="repositories">
                 <span class="nav-title">Repositories</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item" data-request="following">
+            <div id="starredRepositoriesNavItem" class="app-nav-item" data-request="starredRepositories">
+                <span class="nav-title">Starred Repositories</span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+            <div id="followingNavItem" class="app-nav-item" data-request="following">
                 <span class="nav-title">Following</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
                 </span>
             </div>
-            <div class="app-nav-item" data-request="followers">
+            <div id="followersNavItem" class="app-nav-item" data-request="followers">
                 <span class="nav-title">Followers</span>
                 <span class="icon is-small">
                     <i class="fa fa-angle-right"></i>
