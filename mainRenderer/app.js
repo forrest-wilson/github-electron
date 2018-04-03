@@ -20,6 +20,15 @@ ipcRenderer.on("repo:response", (e, repos) => {
     templateCompiler.compileRepos(repos);
 });
 
+ipcRenderer.on("openSaveDialog:complete", () => {
+    $(".clone-button.is-loading").removeClass("is-loading");
+    console.log(`complete ${new Date()}`);
+});
+
+ipcRenderer.on("openSaveDialog:cancelled", () => {
+    $(".clone-button.is-loading").removeClass("is-loading");
+});
+
 //**** Click Event Handlers ****//
 
 $(".app-nav-item").on("click", function() {
@@ -56,6 +65,18 @@ $(".app-nav-item").on("click", function() {
     // Persist selected nav item
     config.set(navSelector, `${dataRequest}NavItem`);
 });
+
+$(document).on("click", ".clone-button", function(e) {
+    e.preventDefault();
+    let repoName = $(this).data("reponame");
+    let cloneUrl = $(this).data("cloneurl");
+
+    $(this).addClass("is-loading");
+
+    ipcRenderer.send("openSaveDialog", {url: cloneUrl, name: repoName});
+});
+
+//**** Load Triggers ****//
 
 // Sets the previous sessions' nav as the selected nav item
 $(`#${config.get(navSelector)}`).trigger("click");
