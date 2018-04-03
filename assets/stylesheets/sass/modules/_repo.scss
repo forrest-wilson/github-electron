@@ -9,20 +9,8 @@
 }
 
 .clone-button {
-    padding: 10px 20px;
-    border: 1px solid black;
-    color: white;
-    background: linear-gradient(rgb(51, 51, 51), black);
-    border-radius: 5px;
-    font-size: 1rem;
     align-self: center;
-    user-select: none;
     flex-shrink: 0;
-
-    &:hover {
-        cursor: pointer;
-        background: linear-gradient(rgb(100, 100, 100), rgb(12, 12, 12));
-    }
 
     &:focus {
         outline: none;

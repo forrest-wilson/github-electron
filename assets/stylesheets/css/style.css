@@ -73,25 +73,10 @@ body {
   align-self: center; }
 
 .clone-button {
-  padding: 10px 20px;
-  border: 1px solid black;
-  color: white;
-  background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(black));
-  background: linear-gradient(#333333, black);
-  border-radius: 5px;
-  font-size: 1rem;
   -ms-flex-item-align: center;
   align-self: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   -ms-flex-negative: 0;
   flex-shrink: 0; }
-  .clone-button:hover {
-    cursor: pointer;
-    background: -webkit-gradient(linear, left top, left bottom, from(#646464), to(#0c0c0c));
-    background: linear-gradient(#646464, #0c0c0c); }
   .clone-button:focus {
     outline: none; }
   .clone-button:active {
