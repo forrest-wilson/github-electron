@@ -4,13 +4,13 @@ exports.compileRepos = (repos) => {
     if (!repos.length) repos = [repos];
 
     repos.forEach(repo => {
-        const template = `<div class="repo">
-                            <div>
-                                <span>${repo.name}</span> - 
+        const template = `<div class="repo content">
+                            <div class="details">
+                                <h2>${repo.name}</h2>
                                 <span>${repo.language}</span>
                             </div>
-                            <button>Clone ${repo.name}</button>
-                        </div>`;
+                            <button class="clone-button">Clone Repo</button>
+                        </div><hr>`;
         
         $("#reposWrapper").append(template);
     });
