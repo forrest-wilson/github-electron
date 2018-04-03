@@ -9,7 +9,7 @@ exports.compileRepos = (repos) => {
                                 <h2>${repo.name}</h2>
                                 <span>${repo.language}</span>
                             </div>
-                            <button class="clone-button">Clone Repo</button>
+                            <button class="button is-success clone-button" data-cloneurl="${repo.clone_url}" data-reponame="${repo.name}">Clone Repo</button>
                         </div><hr>`;
         
         $("#reposWrapper").append(template);
