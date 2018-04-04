@@ -5,6 +5,30 @@ const netRequest = require("./netRequest.js");
 const config = require("./config");
 const userProps = "userProps";
 const gitClone = require("git-clone");
+const ElectronOnline = require("electron-online");
+const connection = new ElectronOnline();
+const notificationsSupported = Notification.isSupported();
+
+// Internet connection event listener
+connection.on("offline", () => {
+    const offlineNotification = new Notification({
+        title: "Lost Internet Connection!",
+        body: "You won't be able to clone repos without an internet connection!",
+        silent: true
+    });
+
+    offlineNotification.show();
+
+    connection.once("online", () => {
+        const onlineNotification = new Notification({
+            title: "Back online!",
+            body: "Looks like things are back to normal! As you were.",
+            silent: true
+        });
+    
+        onlineNotification.show();
+    });
+});
 
 // Enables electron-reload
 require("electron-reload")(__dirname);
@@ -19,7 +43,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    if (loginWindow.mainWin === null) loginWindow.createWindow();
+    if (loginWindow.loginWin === null) loginWindow.createWindow();
 });
 
 // Sent from login.js
@@ -49,23 +73,36 @@ ipcMain.on("repo", (e, reposUrl) => {
 ipcMain.on("openSaveDialog", (e, data) => {
     let path = dialog.showSaveDialog(mainWindow.mainWin, {buttonLabel: "Clone", defaultPath: data.name});
 
-    if (path) {
+    if (path && connection.status === "ONLINE") {
         gitClone(data.url, path, {}, () => {
             e.sender.send("openSaveDialog:complete");
-            // Dispatch notification to the OS
-            const notification = new Notification({
+            // Dispatch notification to the OS if it is supported
+            const notifySuccess = new Notification({
                 title: "Successfully cloned:",
-                subtitle: `${data.name}`
+                body: `${data.name}`,
+                silent: true
             });
 
-            notification.show();
+            if (notificationsSupported) {
+                notifySuccess.show();
 
-            notification.on("click", () => {
-                // Opens the newly created repo in finder/explorer
-                shell.openItem(`${path}`);
-            });
+                notifySuccess.once("click", () => {
+                    // Opens the newly created repo in finder/explorer
+                    shell.openItem(`${path}`);
+                });
+            }
         });
     } else {
-       e.sender.send("openSaveDialog:cancelled");
+        const notifyFail = new Notification({
+            title: "Clone failed!",
+            body: "Please check your internet connection",
+            silent: true
+        });
+
+        if (notificationsSupported) {
+            notifyFail.show();
+        }
+
+        e.sender.send("openSaveDialog:cancelled");
     }
 });
