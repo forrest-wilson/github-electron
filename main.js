@@ -1,4 +1,4 @@
-const {app, ipcMain, dialog} = require("electron");
+const {app, ipcMain, dialog, Notification, shell} = require("electron");
 const mainWindow = require("./mainWindow");
 const loginWindow = require("./loginWindow");
 const netRequest = require("./netRequest.js");
@@ -52,6 +52,18 @@ ipcMain.on("openSaveDialog", (e, data) => {
     if (path) {
         gitClone(data.url, path, {}, () => {
             e.sender.send("openSaveDialog:complete");
+            // Dispatch notification to the OS
+            const notification = new Notification({
+                title: "Successfully cloned:",
+                subtitle: `${data.name}`
+            });
+
+            notification.show();
+
+            notification.on("click", () => {
+                // Opens the newly created repo in finder/explorer
+                shell.openItem(`${path}`);
+            });
         });
     } else {
        e.sender.send("openSaveDialog:cancelled");
