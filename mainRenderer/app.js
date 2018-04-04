@@ -20,9 +20,8 @@ ipcRenderer.on("repo:response", (e, repos) => {
     templateCompiler.compileRepos(repos);
 });
 
-ipcRenderer.on("openSaveDialog:complete", () => {
-    $(".clone-button.is-loading").removeClass("is-loading");
-    console.log(`complete ${new Date()}`);
+ipcRenderer.on("openSaveDialog:complete", (e, res) => {
+    $(".clone-button.is-loading", `[data-repouuid="${res}"]`).removeClass("is-loading");
 });
 
 ipcRenderer.on("openSaveDialog:cancelled", () => {
@@ -70,10 +69,11 @@ $(document).on("click", ".clone-button", function(e) {
     e.preventDefault();
     let repoName = $(this).data("reponame");
     let cloneUrl = $(this).data("cloneurl");
+    let repoUuid = $(this).data("repouuid");
 
     $(this).addClass("is-loading");
 
-    ipcRenderer.send("openSaveDialog", {url: cloneUrl, name: repoName});
+    ipcRenderer.send("openSaveDialog", {url: cloneUrl, name: repoName, uuid: repoUuid});
 });
 
 //**** Load Triggers ****//
