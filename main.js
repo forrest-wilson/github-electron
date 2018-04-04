@@ -74,15 +74,16 @@ ipcMain.on("openSaveDialog", (e, data) => {
     let path = dialog.showSaveDialog(mainWindow.mainWin, {buttonLabel: "Clone", defaultPath: data.name});
 
     if (path && connection.status === "ONLINE") {
-        gitClone(data.url, path, {}, () => {
-            e.sender.send("openSaveDialog:complete");
-            // Dispatch notification to the OS if it is supported
+        gitClone(data.url, path, () => {
+            e.sender.send("openSaveDialog:complete", data.uuid);
+
             const notifySuccess = new Notification({
                 title: "Successfully cloned:",
                 body: `${data.name}`,
                 silent: true
             });
 
+            // Dispatch notification to the OS if it is supported
             if (notificationsSupported) {
                 notifySuccess.show();
 
@@ -99,10 +100,11 @@ ipcMain.on("openSaveDialog", (e, data) => {
             silent: true
         });
 
+        // Dispatch notification to the OS if it is supported
         if (notificationsSupported) {
             notifyFail.show();
         }
 
-        e.sender.send("openSaveDialog:cancelled");
+        e.sender.send("openSaveDialog:cancelled", data.uuid);
     }
 });
