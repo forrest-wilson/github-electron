@@ -34,8 +34,8 @@ connection.on("offline", () => {
 require("electron-reload")(__dirname);
 
 app.on("ready", () => {
-    (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
-    // loginWindow.createWindow();
+    // (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
+    mainWindow.createWindow();
 });
 
 app.on("window-all-closed", () => {
@@ -43,7 +43,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    if (loginWindow.loginWin === null) loginWindow.createWindow();
+    (mainWindow.mainWin === null) ? mainWindow.createWindow() : mainWindow.mainWin.show();
 });
 
 // Sent from login.js

@@ -10,7 +10,8 @@ exports.createWindow = () => {
         minHeight: 500,
         width: 1000,
         height: 700,
-        titleBarStyle: "hiddenInset"
+        titleBarStyle: "hiddenInset",
+        show: false
     };
 
     let storedSettings = config.get(mainWinPosition);
@@ -26,7 +27,13 @@ exports.createWindow = () => {
 
     this.mainWin.webContents.openDevTools();
 
-    this.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+    if (true) {
+        this.mainWin.loadURL(`file://${__dirname}/loginRenderer/login.html`);
+    }
+
+    this.mainWin.once("ready-to-show", () => {
+        this.mainWin.show();
+    });
 
     this.mainWin.on("closed", () => {
         this.mainWin = null;
