@@ -25,6 +25,7 @@
     "bulma": "^0.6.2",
     "electron": "^1.8.4",
     "electron-config": "^1.0.0",
+    "electron-oauth2": "^3.0.0",
     "electron-online": "^1.0.0",
     "font-awesome": "^4.7.0",
     "git-clone": "^0.1.0",
