@@ -24,6 +24,40 @@ body {
     -ms-flex: 1;
     flex: 1; }
 
+.section-navigator {
+  width: 80px;
+  padding-top: 40px;
+  background: #252525;
+  z-index: 10;
+  -webkit-box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
+  box-shadow: 0 0 10px rgba(15, 15, 15, 0.75); }
+  .section-navigator .navigator-icon {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 32px;
+    color: #58595c;
+    -webkit-transition: 300ms;
+    transition: 300ms;
+    border-radius: 50%; }
+    .section-navigator .navigator-icon:hover,
+    .section-navigator .navigator-icon .active-nav-item {
+      color: #787878;
+      background-color: #3c3c3c;
+      cursor: pointer;
+      -webkit-box-shadow: 0 0 10px white;
+      box-shadow: 0 0 10px white; }
+
 .app-nav-item {
   padding: 20px;
   display: -webkit-box;

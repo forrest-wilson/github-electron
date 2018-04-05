@@ -1,5 +1,35 @@
 //**** Navigation Styling ****//
 
+.section-navigator {
+    width: 80px;
+    padding-top: 40px;
+    background: $darkColor;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
+
+    .navigator-icon {
+        width: 60px;
+        height: 60px;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        font-size: 32px;
+        color: rgb(88, 89, 92);
+        transition: 300ms;
+        border-radius: 50%;
+
+        &:hover,
+        .active-nav-item {
+            color: rgb(120, 120, 120);
+            background-color: rgb(60, 60, 60);
+            cursor: pointer;
+            box-shadow: 0 0 10px white;
+        }
+    }
+}
+
 .app-nav-item {
     padding: 20px;
     display: flex;
