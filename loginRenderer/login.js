@@ -15,12 +15,17 @@ ipcRenderer.on("username:response", (e, state) => {
     console.log("Username found");
 });
 
+ipcRenderer.on("github-oauth:reply", (e, token) => {
+    console.log("Received token!");
+    console.log(token);
+});
+
 //**** Event Listeners ****//
 
 // Keypress Events
-$(document).on("keydown", (e) => {
-    if (e.key === "Enter") $("#usernameSearch").click();
-});
+// $(document).on("keydown", (e) => {
+//     if (e.key === "Enter") $("#usernameSearch").click();
+// });
 
 $("#usernameInput").on("keyup", () => {
     let search = $("#usernameInput").val();
@@ -36,12 +41,15 @@ $("#usernameInput").on("keyup", () => {
 
 // Click Events
 $("#usernameSearch").click(() => {
-    let usernameToSearch = $("#usernameInput").val();
+    // let usernameToSearch = $("#usernameInput").val();
 
-    if (usernameToSearch !== "") {
-        ipcRenderer.send("username", usernameToSearch);
-        $("#usernameSearch").addClass("is-loading");
-    }
+    // if (usernameToSearch !== "") {
+    //     ipcRenderer.send("username", usernameToSearch);
+    //     $("#usernameSearch").addClass("is-loading");
+    // }
+
+    // OAuth logic sender
+    ipcRenderer.send("github-oauth", "getToken");
 });
 
 $("#makeGithubAccountLink").click((e) => {
