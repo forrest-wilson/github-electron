@@ -9,7 +9,8 @@ exports.createWindow = () => {
         minWidth: 750,
         minHeight: 500,
         width: 1000,
-        height: 700
+        height: 700,
+        titleBarStyle: "hiddenInset"
     };
 
     let storedSettings = config.get(mainWinPosition);
