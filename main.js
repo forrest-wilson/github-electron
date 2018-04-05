@@ -1,6 +1,5 @@
 const {app, ipcMain, dialog, Notification, shell} = require("electron");
 const mainWindow = require("./mainWindow");
-const loginWindow = require("./loginWindow");
 const netRequest = require("./netRequest.js");
 const config = require("./config");
 const userProps = "userProps";
@@ -8,6 +7,8 @@ const gitClone = require("git-clone");
 const ElectronOnline = require("electron-online");
 const connection = new ElectronOnline();
 const notificationsSupported = Notification.isSupported();
+const electronOauth2 = require("electron-oauth2");
+const oauthConfig = require("./oauth");
 
 // Internet connection event listener
 connection.on("offline", () => {
@@ -34,7 +35,6 @@ connection.on("offline", () => {
 require("electron-reload")(__dirname);
 
 app.on("ready", () => {
-    // (config.get(userProps)) ? mainWindow.createWindow() : loginWindow.createWindow();
     mainWindow.createWindow();
 });
 
@@ -44,6 +44,32 @@ app.on("window-all-closed", () => {
 
 app.on("activate", () => {
     (mainWindow.mainWin === null) ? mainWindow.createWindow() : mainWindow.mainWin.show();
+});
+
+// Github token retrieval
+
+const windowParams = {
+    alwaysOnTop: true,
+    autoHideMenuBar: true,
+    webPreferences: {
+        nodeIntegration: false
+    }
+};
+
+const githubOauth = electronOauth2(oauthConfig, windowParams);
+
+// Sent from login.js
+ipcMain.on("github-oauth", (e) => {
+    const accessOptions = {
+        scope: "repo"
+    };
+    githubOauth.getAccessToken(accessOptions)
+        .then(token => {
+            e.sender.send("github-oauth:reply", token);
+            mainWindow.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+        }, err => {
+            console.log("Error while getting token: ", err);
+        });
 });
 
 // Sent from login.js
