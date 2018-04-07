@@ -18,6 +18,7 @@
         color: rgb(88, 89, 92);
         transition: 300ms;
         border-radius: 10px;
+        -webkit-app-region: no-drag;
 
         &:hover,
         &.active-nav-item {

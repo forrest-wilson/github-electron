@@ -48,7 +48,8 @@ body {
     color: #58595c;
     -webkit-transition: 300ms;
     transition: 300ms;
-    border-radius: 10px; }
+    border-radius: 10px;
+    -webkit-app-region: no-drag; }
     .section-navigator .navigator-icon:hover, .section-navigator .navigator-icon.active-nav-item {
       color: #787878;
       background-color: #3c3c3c;
