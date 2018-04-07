@@ -10,6 +10,9 @@ const notificationsSupported = Notification.isSupported();
 const electronOauth2 = require("electron-oauth2");
 const oauthConfig = require("./oauth");
 
+// Enables electron-reload
+require("electron-reload")(__dirname);
+
 // Internet connection event listener
 connection.on("offline", () => {
     const offlineNotification = new Notification({
@@ -30,9 +33,6 @@ connection.on("offline", () => {
         onlineNotification.show();
     });
 });
-
-// Enables electron-reload
-require("electron-reload")(__dirname);
 
 app.on("ready", () => {
     mainWindow.createWindow();
@@ -65,24 +65,19 @@ ipcMain.on("github-oauth", (e) => {
     };
     githubOauth.getAccessToken(accessOptions)
         .then(token => {
-            e.sender.send("github-oauth:reply", token);
-            mainWindow.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+            // e.sender.send("github-oauth:reply", token);
+            config.set("githubToken", token);
+            netRequest.getUser((state, data) => {
+                if (state) {
+                    config.set(userProps, data);
+                }
+                
+                // e.sender.send("username:response", state);
+                mainWindow.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+            });
         }, err => {
             console.log("Error while getting token: ", err);
         });
-});
-
-// Sent from login.js
-ipcMain.on("username", (e, username) => {
-    netRequest.getUsername(username, (state, data) => {
-        if (state) {
-            config.set(userProps, data);
-        }
-        
-        e.sender.send("username:response", state);
-        loginWindow.loginWin.close();
-        mainWindow.createWindow();
-    });
 });
 
 // Sent from app.js

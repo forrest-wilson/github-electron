@@ -1,4 +1,6 @@
 const {net} = require("electron");
+const config = require("./config");
+const baseUrl = "https://api.github.com/user";
 
 function performRequest(request, callback) {
     request.on("response", (response) => {
@@ -20,8 +22,8 @@ function performRequest(request, callback) {
     request.end();
 }
 
-exports.getUsername = (username, callback) => {
-    let request = net.request(`https://api.github.com/users/${username}`);
+exports.getUser = (callback) => {
+    let request = net.request(`${baseUrl}?access_token=${config.get("githubToken").access_token}`);
     performRequest(request, callback);
 };
 

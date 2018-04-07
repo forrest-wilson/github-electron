@@ -27,8 +27,10 @@ exports.createWindow = () => {
 
     this.mainWin.webContents.openDevTools();
 
-    if (true) {
+    if (!config.get("githubToken")) {
         this.mainWin.loadURL(`file://${__dirname}/loginRenderer/login.html`);
+    } else {
+        this.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
     }
 
     this.mainWin.once("ready-to-show", () => {
