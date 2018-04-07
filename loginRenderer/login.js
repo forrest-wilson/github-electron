@@ -22,32 +22,8 @@ ipcRenderer.on("github-oauth:reply", (e, token) => {
 
 //**** Event Listeners ****//
 
-// Keypress Events
-// $(document).on("keydown", (e) => {
-//     if (e.key === "Enter") $("#usernameSearch").click();
-// });
-
-$("#usernameInput").on("keyup", () => {
-    let search = $("#usernameInput").val();
-
-    if (search !== "") {
-        $("#usernameInput").removeClass("is-danger");
-        $("#usernameWarning").addClass("is-hidden");
-    } else {
-        $("#usernameInput").addClass("is-danger");
-        $("#usernameWarning").removeClass("is-hidden");
-    }
-});
-
 // Click Events
 $("#usernameSearch").click(() => {
-    // let usernameToSearch = $("#usernameInput").val();
-
-    // if (usernameToSearch !== "") {
-    //     ipcRenderer.send("username", usernameToSearch);
-    //     $("#usernameSearch").addClass("is-loading");
-    // }
-
     // OAuth logic sender
     ipcRenderer.send("github-oauth", "getToken");
 });
