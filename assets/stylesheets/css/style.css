@@ -32,8 +32,8 @@ body {
   -webkit-box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
   box-shadow: 0 0 10px rgba(15, 15, 15, 0.75); }
   .section-navigator .navigator-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     margin: 10px auto;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -44,19 +44,15 @@ body {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding: 10px;
     font-size: 32px;
     color: #58595c;
     -webkit-transition: 300ms;
     transition: 300ms;
-    border-radius: 50%; }
-    .section-navigator .navigator-icon:hover,
-    .section-navigator .navigator-icon .active-nav-item {
+    border-radius: 10px; }
+    .section-navigator .navigator-icon:hover, .section-navigator .navigator-icon.active-nav-item {
       color: #787878;
       background-color: #3c3c3c;
-      cursor: pointer;
-      -webkit-box-shadow: 0 0 10px white;
-      box-shadow: 0 0 10px white; }
+      cursor: pointer; }
 
 .app-nav-item {
   padding: 20px;
@@ -79,7 +75,7 @@ body {
     -ms-flex-negative: 0;
     flex-shrink: 0; }
     .app-nav-item .img > img {
-      border-radius: 50%; }
+      border-radius: 10px; }
   .app-nav-item .nav-title {
     -webkit-box-flex: 1;
     -ms-flex: 1;
@@ -128,16 +124,9 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center; }
-  .login body {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center; }
   .login .login-section {
     width: 100%;
-    max-width: 450px;
+    max-width: 300px;
     margin: 0 auto; }
   .login .modal-content {
     max-height: initial; }

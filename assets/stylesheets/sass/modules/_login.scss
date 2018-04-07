@@ -4,14 +4,9 @@
     align-items: center;
     justify-content: center;
 
-    body {
-        display: flex;
-        align-items: center;
-    }
-
     .login-section {
         width: 100%;
-        max-width: 450px;
+        max-width: 300px;
         margin: 0 auto;
     }
 
@@ -27,4 +22,3 @@
         width: 100%;
     }
 }
-
