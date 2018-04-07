@@ -1,0 +1,30 @@
+.login {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    body {
+        display: flex;
+        align-items: center;
+    }
+
+    .login-section {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    .modal-content {
+        max-height: initial;
+    }
+
+    .modal-content > .content > * {
+        color: white;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+}
+
