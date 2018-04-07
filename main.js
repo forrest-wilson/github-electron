@@ -64,14 +64,12 @@ ipcMain.on("github-oauth", () => {
     };
     githubOauth.getAccessToken(accessOptions)
         .then(token => {
-            // e.sender.send("github-oauth:reply", token);
             config.set("githubToken", token);
             netRequest.getUser((state, data) => {
                 if (state) {
                     config.set(userProps, data);
                 }
                 
-                // e.sender.send("username:response", state);
                 mainWindow.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
             });
         }, err => {

@@ -2,24 +2,6 @@
 
 const {ipcRenderer, shell} = require("electron");
 
-//**** IPC ****//
-
-ipcRenderer.on("username:response", (e, state) => {
-    $("#usernameSearch").removeClass("is-loading");
-
-    if (!state) {
-        $("#errorModal").addClass("is-active");
-        return;
-    }
-
-    console.log("Username found");
-});
-
-ipcRenderer.on("github-oauth:reply", (e, token) => {
-    console.log("Received token!");
-    console.log(token);
-});
-
 //**** Event Listeners ****//
 
 // Click Events
