@@ -17,8 +17,6 @@ exports.compileRepos = (repos) => {
     });
 };
 
-// exports.compileProfile = (props) => {
-//     const template = `<div class="">
-                        
-//                     </div>`
-// };
+exports.compileProfile = (props) => {
+    console.log(props);
+};

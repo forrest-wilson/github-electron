@@ -5,12 +5,6 @@ const repos = config.get("repos");
 const templateCompiler = require("./templateCompiler");
 const navSelector = "navSelectionID";
 
-//**** Helper Functions ****//
-
-function compileProfileTemplate(props) {
-    console.log(props);
-}
-
 $("#navImg").attr("src", userProps.avatar_url);
 $("#navName").text(userProps.name);
 
@@ -56,7 +50,7 @@ $(".app-nav-item").on("click", function() {
             break;
         case "profile":
             if (userProps) {
-                compileProfileTemplate(userProps);
+                templateCompiler.compileProfile(userProps);
             }
             break;
     }
