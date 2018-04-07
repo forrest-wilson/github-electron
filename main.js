@@ -10,6 +10,17 @@ const notificationsSupported = Notification.isSupported();
 const electronOauth2 = require("electron-oauth2");
 const oauthConfig = require("./oauth");
 
+// Github token retrieval
+const windowParams = {
+    alwaysOnTop: true,
+    autoHideMenuBar: true,
+    webPreferences: {
+        nodeIntegration: false
+    }
+};
+
+const githubOauth = electronOauth2(oauthConfig, windowParams);
+
 // Enables electron-reload
 require("electron-reload")(__dirname);
 
@@ -46,20 +57,8 @@ app.on("activate", () => {
     (mainWindow.mainWin === null) ? mainWindow.createWindow() : mainWindow.mainWin.show();
 });
 
-// Github token retrieval
-
-const windowParams = {
-    alwaysOnTop: true,
-    autoHideMenuBar: true,
-    webPreferences: {
-        nodeIntegration: false
-    }
-};
-
-const githubOauth = electronOauth2(oauthConfig, windowParams);
-
 // Sent from login.js
-ipcMain.on("github-oauth", (e) => {
+ipcMain.on("github-oauth", () => {
     const accessOptions = {
         scope: "repo"
     };
