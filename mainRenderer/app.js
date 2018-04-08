@@ -1,7 +1,6 @@
 const {ipcRenderer} = require("electron");
 const config = require("../config");
 const userProps = config.get("userProps");
-const repos = config.get("repos");
 const templateCompiler = require("./templateCompiler");
 const navSelector = "navSelectionID";
 
@@ -42,10 +41,10 @@ $(".app-nav-item").on("click", function() {
 
     switch(dataRequest) {
         case "repositories":
-            if (repos) {
-                templateCompiler.compileRepos(repos);
+            if (config.get("repos")) {
+                templateCompiler.compileRepos(config.get("repos"));
             } else {
-                ipcRenderer.send("repo", userProps.repos_url);
+                ipcRenderer.send("repo");
             }
             break;
         case "profile":

@@ -2,7 +2,7 @@ const {net} = require("electron");
 const config = require("./config");
 const baseUrl = "https://api.github.com/user";
 
-function performRequest(request, callback) {
+function performRequest(request, callback, index, e) {
     request.on("response", (response) => {
         let compiledChunks = "";
 
@@ -13,10 +13,10 @@ function performRequest(request, callback) {
         response.on("end", () => {
             let compiledData = JSON.parse(compiledChunks);
             if (compiledData.message === "Not Found") {
-                callback(false, compiledData);
+                callback(false, compiledData, index, e);
                 return;
             }
-            if (response.statusCode === 200) callback(true, compiledData);
+            if (response.statusCode === 200) callback(true, compiledData, index, e);
         });
     });
     request.end();
@@ -27,7 +27,8 @@ exports.getUser = (callback) => {
     performRequest(request, callback);
 };
 
-exports.getRepos = (url, callback) => {
-    let request = net.request(url);
-    performRequest(request, callback);
+exports.getRepos = (index, callback, e) => {
+    console.log(`Request #${index}`);
+    let request = net.request(`${baseUrl}/repos?page=${index}&per_page=10&access_token=${config.get("githubToken").access_token}`);
+    performRequest(request, callback, index, e);
 };

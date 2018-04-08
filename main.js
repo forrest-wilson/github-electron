@@ -9,6 +9,7 @@ const connection = new ElectronOnline();
 const notificationsSupported = Notification.isSupported();
 const electronOauth2 = require("electron-oauth2");
 const oauthConfig = require("./oauth");
+const _ = require("lodash");
 
 // Github token retrieval
 const windowParams = {
@@ -77,14 +78,51 @@ ipcMain.on("github-oauth", () => {
         });
 });
 
-// Sent from app.js
-ipcMain.on("repo", (e, reposUrl) => {
-    netRequest.getRepos(reposUrl, (state, repos) => {
-        if (state) {
+function repoCallback(state, repos, index, e) {
+    if (state && repos.length) {
+        let savedRepos = config.get("repos");
+        let savedReposClone = [];
+
+        if (savedRepos) {
+            console.log(`Number of Saved Repos: ${savedRepos.length}`);
+            savedRepos.forEach(savedRepo => {
+                savedReposClone.push(savedRepo);
+            });
+
+            repos.forEach(repo => {
+                savedReposClone.forEach((savedRepoClone, i) => {
+                    if (_.isEqual(repo.id, savedRepoClone.id)) {
+                        console.log("We have a match!");
+                        savedReposClone.splice(i, 1, repo);
+                    }
+                });
+            });
+
+            console.log(`Clone length: ${savedReposClone.length}`);
+
+            let total = savedReposClone.concat(repos);
+
+            config.set("repos", total);
+        } else {
+            console.log("There aren't an saved repos");
             config.set("repos", repos);
-            e.sender.send("repo:response", repos);
         }
-    });
+
+        console.log(`Total repos: ${config.get("userProps").public_repos}`);
+        console.log(`Stored repos: ${config.get("repos").length}`);
+
+        let newIndex = index + 1;
+        netRequest.getRepos(newIndex, repoCallback, e);
+    }
+
+    if (!repos.length) {
+        e.sender.send("repo:response", config.get("repos"));
+    }
+}
+
+// Sent from app.js
+ipcMain.on("repo", (e) => {
+    netRequest.getRepos(1, repoCallback, e);
 });
 
 // Sent from app.js
