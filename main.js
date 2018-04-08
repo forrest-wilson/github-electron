@@ -1,5 +1,6 @@
 const {app, ipcMain, dialog, Notification, shell} = require("electron");
 const mainWindow = require("./mainWindow");
+const loadingWindow = require("./loadingWindow");
 const netRequest = require("./netRequest.js");
 const config = require("./config");
 const userProps = "userProps";
