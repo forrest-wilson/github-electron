@@ -108,7 +108,6 @@ function repoCallback(state, repos, index, e) {
             config.set("repos", repos);
         }
 
-        console.log(`Total repos: ${config.get("userProps").public_repos}`);
         console.log(`Stored repos: ${config.get("repos").length}`);
 
         let newIndex = index + 1;
