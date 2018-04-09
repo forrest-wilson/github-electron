@@ -44,7 +44,7 @@ $(".app-nav-item").on("click", function() {
             if (config.get("repos")) {
                 templateCompiler.compileRepos(config.get("repos"));
             } else {
-                ipcRenderer.send("repo");
+                throw new Error("Error getting repos from persistent store");
             }
             break;
         case "profile":
