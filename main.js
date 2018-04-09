@@ -89,9 +89,9 @@ function repoCallback(state, repos, index, e) {
     if (state && repos.length) {
         let savedRepos = config.get("repos");
         let savedReposClone = [];
+        let potentialNewItems = [];
 
         if (savedRepos) {
-            console.log(`Number of Saved Repos: ${savedRepos.length}`);
             savedRepos.forEach(savedRepo => {
                 savedReposClone.push(savedRepo);
             });
@@ -99,23 +99,22 @@ function repoCallback(state, repos, index, e) {
             repos.forEach(repo => {
                 savedReposClone.forEach((savedRepoClone, i) => {
                     if (_.isEqual(repo.id, savedRepoClone.id)) {
-                        console.log("We have a match!");
                         savedReposClone.splice(i, 1, repo);
+                    } else {
+                        potentialNewItems.push(repo);
                     }
                 });
             });
 
-            console.log(`Clone length: ${savedReposClone.length}`);
+            let uniqPotentialNewItems = _.uniq(potentialNewItems);
 
-            let total = savedReposClone.concat(repos);
+            let total = _.uniq(savedReposClone.concat(_.uniq(uniqPotentialNewItems)));
 
             config.set("repos", total);
         } else {
             console.log("There aren't an saved repos");
             config.set("repos", repos);
         }
-
-        console.log(`Stored repos: ${config.get("repos").length}`);
 
         let newIndex = index + 1;
         netRequest.getRepos(newIndex, repoCallback, e);
