@@ -29,7 +29,7 @@ require("electron-reload")(__dirname);
 // Internet connection event listener
 connection.on("offline", () => {
     const offlineNotification = new Notification({
-        title: "Lost Internet Connection!",
+        title: "No Internet Connection!",
         body: "You won't be able to clone repos without an internet connection!",
         silent: true
     });
