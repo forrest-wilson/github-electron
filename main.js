@@ -1,7 +1,8 @@
 const {app, ipcMain, dialog, Notification, shell} = require("electron");
 const mainWindow = require("./mainWindow");
 const loadingWindow = require("./loadingWindow");
-const netRequest = require("./netRequest.js");
+const loginWindow = require("./loginWindow");
+const netRequest = require("./netRequest");
 const config = require("./config");
 const userProps = "userProps";
 const gitClone = require("git-clone");
@@ -30,7 +31,7 @@ require("electron-reload")(__dirname);
 connection.on("offline", () => {
     const offlineNotification = new Notification({
         title: "No Internet Connection!",
-        body: "You won't be able to clone repos without an internet connection!",
+        body: "You can't clone repos without an internet connection!",
         silent: true
     });
 
@@ -48,7 +49,7 @@ connection.on("offline", () => {
 });
 
 app.on("ready", () => {
-    mainWindow.createWindow();
+    (config.get("githubToken")) ? loadingWindow.createWindow() : loginWindow.createWindow();
 });
 
 app.on("window-all-closed", () => {
@@ -56,7 +57,11 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    (mainWindow.mainWin === null) ? mainWindow.createWindow() : mainWindow.mainWin.show();
+    if (config.get("githubToken")) {
+        (mainWindow.mainWin === null) ? mainWindow.createWindow() : mainWindow.mainWin.show();
+    } else {
+        loginWindow.createWindow();
+    }
 });
 
 // Sent from login.js
@@ -72,7 +77,8 @@ ipcMain.on("github-oauth", () => {
                     config.set(userProps, data);
                 }
                 
-                mainWindow.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+                loginWindow.loginWin.close();
+                loadingWindow.createWindow();
             });
         }, err => {
             console.log("Error while getting token: ", err);
@@ -116,13 +122,19 @@ function repoCallback(state, repos, index, e) {
     }
 
     if (!repos.length) {
-        e.sender.send("repo:response", config.get("repos"));
+        loadingWindow.loadingWin.close();
+        mainWindow.createWindow();
     }
 }
 
-// Sent from app.js
+// Sent from app.js & loadingWindow.js
 ipcMain.on("repo", (e) => {
     netRequest.getRepos(1, repoCallback, e);
+});
+
+// Sent from loadingWindow.js
+ipcMain.on("finishedLoadingRepos", () => {
+    mainWindow.createWindow();
 });
 
 // Sent from app.js

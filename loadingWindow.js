@@ -8,7 +8,8 @@ exports.createWindow = () => {
         height: 400,
         frame: false,
         show: false,
-        resizable: false
+        resizable: false,
+        alwaysOnTop: true
     };
 
     this.loadingWin = new BrowserWindow(windowSettings);
