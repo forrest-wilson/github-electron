@@ -29,6 +29,6 @@ exports.getUser = (callback) => {
 
 exports.getRepos = (index, callback, e) => {
     console.log(`Request #${index}`);
-    let request = net.request(`${baseUrl}/repos?page=${index}&per_page=10&access_token=${config.get("githubToken").access_token}`);
+    let request = net.request(`${baseUrl}/repos?page=${index}&per_page=100&access_token=${config.get("githubToken").access_token}`);
     performRequest(request, callback, index, e);
 };
