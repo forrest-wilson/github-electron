@@ -120,7 +120,13 @@ function repoCallback(state, repos, index, e) {
         netRequest.getRepos(newIndex, repoCallback, e);
     }
 
-    if (!repos.length) {
+    if (state && !repos.length) {
+        loadingWindow.loadingWin.close();
+        mainWindow.createWindow();
+    }
+
+    if (!state) {
+        console.log("Loading from saved resources");
         loadingWindow.loadingWin.close();
         mainWindow.createWindow();
     }
