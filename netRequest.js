@@ -19,6 +19,12 @@ function performRequest(request, callback, index, e) {
             if (response.statusCode === 200) callback(true, compiledData, index, e);
         });
     });
+    request.on("error", (err) => {
+        if (err == "Error: net::ERR_INTERNET_DISCONNECTED") {
+            console.log("No internet connection");
+            callback(false, err);
+        }
+    });
     request.end();
 }
 
