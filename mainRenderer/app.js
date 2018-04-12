@@ -2,10 +2,8 @@ const {ipcRenderer} = require("electron");
 const config = require("../config");
 const userProps = config.get("userProps");
 const templateCompiler = require("./templateCompiler");
-const navSelector = "navSelectionID";
 
-$("#navImg").attr("src", userProps.avatar_url);
-$("#navName").text(userProps.name);
+$("#profileImage").attr("src", userProps.avatar_url);
 
 //**** IPC ****//
 
@@ -27,18 +25,6 @@ $(".app-nav-item").on("click", function() {
     let dataRequest = $(this).data("request");
     console.log(`Selected data: ${dataRequest}`);
 
-    // Removes the selected class from the nav item
-    $(".app-nav-item.selected").removeClass("selected");
-
-    // Removes the current showing section
-    $(".section.is-showing").removeClass("is-showing");
-
-    // Shows the corresponding section based on app-nav-item selection
-    $(`#${dataRequest}Section`).addClass("is-showing");
-
-    // Adds the selected class to the clicked element
-    $(this).addClass("selected");
-
     switch(dataRequest) {
         case "repositories":
             if (config.get("repos")) {
@@ -47,15 +33,10 @@ $(".app-nav-item").on("click", function() {
                 throw new Error("Error getting repos from persistent store");
             }
             break;
-        case "profile":
-            if (userProps) {
-                templateCompiler.compileProfile(userProps);
-            }
-            break;
     }
 
-    // Persist selected nav item
-    config.set(navSelector, `${dataRequest}NavItem`);
+    // // Persist selected nav item
+    // config.set(navSelector, `${dataRequest}NavItem`);
 });
 
 $(document).on("click", ".clone-button", function(e) {
@@ -69,7 +50,24 @@ $(document).on("click", ".clone-button", function(e) {
     ipcRenderer.send("openSaveDialog", {url: cloneUrl, name: repoName, uuid: repoUuid});
 });
 
+$(".navigator-icon").on("click", function(e) {
+    e.preventDefault();
+
+    // Toggles the active nav item
+    $(".navigator-icon.active-nav-item").removeClass("active-nav-item");
+    $(this).addClass("active-nav-item");
+
+    // Toggles the active section showing
+    let dataAttr = $(this).data("showsection");
+
+    $(".nav-section").removeClass("is-showing");
+    $(`#${dataAttr}Section`).addClass("is-showing");
+
+    // Persist the active navigator-icon
+    config.set("activeNavigatorIcon", `${dataAttr}`);
+});
+
 //**** Load Triggers ****//
 
 // Sets the previous sessions' nav as the selected nav item
-$(`#${config.get(navSelector)}`).trigger("click");
+$(`[data-showsection=${config.get("activeNavigatorIcon")}`).trigger("click");

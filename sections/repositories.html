@@ -1,14 +1,39 @@
 <template class="template">
-    <section id="repositoriesSection" class="section">
-        <div class="inner">
-            <header class="content">
-                <h1><i class="fa fa-code"></i> Repositories</h1>
-                <p>Below are your public repositories</p>
-            </header>
-            <hr>
-            <main id="reposWrapper">
+    <section id="repositoriesSection" class="nav-section section">
+        <nav class="app-column static nav-bg">
+            <section class="repo-section">
+                <div id="repositoriesNavItem" class="app-nav-item no-shrink selected" data-request="repositories">
+                    <span class="nav-title">All Repos</span>
+                    <span class="icon is-small">
+                        <i class="fa fa-angle-right"></i>
+                    </span>
+                </div>
 
-            </main>
+                <div class="groups">
+                    <div class="group">
+                        <span class="group-title">Repository Groups</span>
+                        <span class="icon is-small">
+                            <i class="fa fa-plus-square-o"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="app-nav-item no-shrink bottom">
+                    <span class="nav-title" style="text-align: center;">+</span>
+                </div>
+            </section>
+        </nav>
+        <div class="app-column fit section is-showing">
+            <div class="inner">
+                <header class="content">
+                    <h1><i class="fa fa-code"></i> Repositories</h1>
+                    <p>Below are your public repositories</p>
+                </header>
+                <hr>
+                <main id="reposWrapper">
+
+                </main>
+            </div>
         </div>
     </section>
 </template>

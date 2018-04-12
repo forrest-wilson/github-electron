@@ -14,49 +14,12 @@
 <body class="window-no-drag">
     <div class="app-columns">
         <nav class="app-column section-navigator window-drag">
-            <div class="navigator-icon active-nav-item">
-                <i class="fa fa-user"></i>
+            <div class="navigator-icon active-nav-item" data-showsection="profile">
+                <img id="profileImage" class="profile-image" src="../assets/images/avatar.png" alt="Avatar">
             </div>
-            <div class="navigator-icon">
+            <div class="navigator-icon" data-showsection="repositories">
                 <i class="fa fa-code"></i>
             </div>
-        </nav>
-        <nav class="app-column static nav-bg">
-            <section>
-                <div id="profileNavItem" class="app-nav-item selected" data-request="profile">
-                    <aside class="img">
-                        <img id="navImg" src="../assets/images/avatar.png" alt="">
-                    </aside>
-                    <span id="navName" class="nav-title">Not Logged In</span>
-                    <span class="icon is-small">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                </div>
-                <div id="repositoriesNavItem" class="app-nav-item" data-request="repositories">
-                    <span class="nav-title">Repositories</span>
-                    <span class="icon is-small">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                </div>
-                <div id="starredRepositoriesNavItem" class="app-nav-item" data-request="starredRepositories">
-                    <span class="nav-title">Starred Repositories</span>
-                    <span class="icon is-small">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                </div>
-                <div id="followingNavItem" class="app-nav-item" data-request="following">
-                    <span class="nav-title">Following</span>
-                    <span class="icon is-small">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                </div>
-                <div id="followersNavItem" class="app-nav-item" data-request="followers">
-                    <span class="nav-title">Followers</span>
-                    <span class="icon is-small">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                </div>
-            </section>
         </nav>
         <main class="app-column main"></main>
     </div>
