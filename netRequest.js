@@ -33,7 +33,7 @@ exports.getUser = (callback) => {
     performRequest(request, callback);
 };
 
-exports.getRepos = (index, callback, e) => {
+exports.getRepos = (e, index, callback) => {
     console.log(`Request #${index}`);
     let request = net.request(`${baseUrl}/repos?page=${index}&per_page=100&access_token=${config.get("githubToken").access_token}`);
     performRequest(request, callback, index, e);

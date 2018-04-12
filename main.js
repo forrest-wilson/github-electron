@@ -117,7 +117,7 @@ function repoCallback(state, repos, index, e) {
         }
 
         let newIndex = index + 1;
-        netRequest.getRepos(newIndex, repoCallback, e);
+        netRequest.getRepos(e, newIndex, repoCallback);
     }
 
     if (state && !repos.length) {
@@ -134,7 +134,7 @@ function repoCallback(state, repos, index, e) {
 
 // Sent from app.js & loadingWindow.js
 ipcMain.on("repo", (e) => {
-    netRequest.getRepos(1, repoCallback, e);
+    netRequest.getRepos(e, 1, repoCallback);
 });
 
 // Sent from loadingWindow.js
