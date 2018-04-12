@@ -8,8 +8,9 @@
     box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
 
     .navigator-icon {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
+        padding: 5px;
         margin: 10px auto;
         display: flex;
         align-items: center;
@@ -19,6 +20,10 @@
         transition: 300ms;
         border-radius: 10px;
         -webkit-app-region: no-drag;
+
+        .profile-image {
+            border-radius: 50%;
+        }
 
         &:hover,
         &.active-nav-item {
@@ -34,23 +39,19 @@
     display: flex;
     align-items: center;
 
-    .img {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-        flex-shrink: 0;
-
-        & > img {
-            border-radius: 10px;
-        }
-    }
-
     .nav-title {
         flex: 1;
         align-self: center;
         word-break: break-word;
+    }
+
+    &.no-shrink {
+        flex-shrink: 0;
+    }
+
+    &.bottom {
+        justify-self: flex-end;
+        border-top: 2px solid $darkBorder;
     }
 
     &.selected,
@@ -61,5 +62,34 @@
 
     &:first-child {
         border-bottom: 2px solid $darkBorder;
+    }
+}
+
+.repo-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.groups {
+    overflow-y: auto;
+    flex-grow: 1;
+
+    .group {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+
+        .group-title {
+            flex: 1;
+            align-self: center;
+            word-break: break-word;
+        }
+
+        &.selected,
+        &:hover {
+            background-color: $selectedDarkColor;
+            cursor: pointer;
+        }
     }
 }

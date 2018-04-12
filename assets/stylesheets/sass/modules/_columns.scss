@@ -5,14 +5,24 @@
     .app-column {
         height: 100%;
         position: relative;
+        overflow-y: auto;
     }
 
     .static {
         width: 250px;
         border-right: 2px solid $darkBorder;
+        flex-shrink: 0;
+    }
+
+    .fit {
+        flex-grow: 1;
     }
 
     .main {
         flex: 1;
+    }
+
+    .section {
+        padding: 0px;
     }
 }

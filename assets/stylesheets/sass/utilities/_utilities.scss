@@ -1,5 +1,5 @@
 .inner {
-    padding: 0 25px;
+    padding: 3rem;
 }
 
 .section {
@@ -20,6 +20,10 @@
         visibility: visible;
         opacity: 1;
     }
+}
+
+.nav-section {
+    display: flex;
 }
 
 .window-drag {
