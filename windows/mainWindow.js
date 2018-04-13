@@ -1,5 +1,5 @@
 const {BrowserWindow} = require("electron");
-const config = require("./config");
+const config = require("../config");
 const mainWinPosition = "mainWinPosition";
 
 exports.mainWin = null;
@@ -28,9 +28,9 @@ exports.createWindow = () => {
     this.mainWin.webContents.openDevTools();
 
     if (!config.get("githubToken")) {
-        this.mainWin.loadURL(`file://${__dirname}/loginRenderer/login.html`);
+        this.mainWin.loadURL(`file://${__dirname}/../loginRenderer/login.html`);
     } else {
-        this.mainWin.loadURL(`file://${__dirname}/mainRenderer/main.html`);
+        this.mainWin.loadURL(`file://${__dirname}/../mainRenderer/main.html`);
     }
 
     this.mainWin.once("ready-to-show", () => {

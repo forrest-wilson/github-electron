@@ -14,7 +14,7 @@ exports.createWindow = () => {
 
     this.loadingWin = new BrowserWindow(windowSettings);
 
-    this.loadingWin.loadURL(`file://${__dirname}/loadingRenderer/loading.html`);
+    this.loadingWin.loadURL(`file://${__dirname}/../loadingRenderer/loading.html`);
 
     this.loadingWin.once("ready-to-show", () => {
         this.loadingWin.show();

@@ -1,10 +1,9 @@
 const {app, ipcMain, dialog, Notification, shell} = require("electron");
-const mainWindow = require("./mainWindow");
-const loadingWindow = require("./loadingWindow");
-const loginWindow = require("./loginWindow");
+const mainWindow = require("./windows/mainWindow");
+const loadingWindow = require("./windows/loadingWindow");
+const loginWindow = require("./windows/loginWindow");
 const netRequest = require("./netRequest");
 const config = require("./config");
-const userProps = "userProps";
 const gitClone = require("git-clone");
 const ElectronOnline = require("electron-online");
 const connection = new ElectronOnline();
@@ -74,7 +73,7 @@ ipcMain.on("github-oauth", () => {
             config.set("githubToken", token);
             netRequest.getUser((state, data) => {
                 if (state) {
-                    config.set(userProps, data);
+                    config.set("userProps", data);
                 }
                 
                 loginWindow.loginWin.close();

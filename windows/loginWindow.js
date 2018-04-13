@@ -13,7 +13,7 @@ exports.createWindow = () => {
 
     this.loginWin = new BrowserWindow(windowSettings);
 
-    this.loginWin.loadURL(`file://${__dirname}/loginRenderer/login.html`);
+    this.loginWin.loadURL(`file://${__dirname}/../loginRenderer/login.html`);
 
     // this.loginWin.webContents.openDevTools();
 
