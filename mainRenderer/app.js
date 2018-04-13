@@ -4,7 +4,11 @@ const userProps = config.get("userProps");
 const templateCompiler = require("./templateCompiler");
 
 $("#profileImage").attr("src", userProps.avatar_url);
-templateCompiler.compileGroups(config.get("groups"), "#groups");
+
+let groups = config.get("groups");
+if (groups) {
+    templateCompiler.compileGroups(groups, "#groups");
+}
 
 //**** Helper Methods ****//
 
