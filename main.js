@@ -181,3 +181,36 @@ ipcMain.on("openSaveDialog", (e, data) => {
         e.sender.send("openSaveDialog:cancelled", data.uuid);
     }
 });
+
+ipcMain.on("newGroup", (e, name) => {
+    let savedGroups = config.get("groups");
+
+    let newGroup = {
+        name: name,
+        repoRef: []
+    };
+
+    if (savedGroups) {
+        for (let i = 0; i < savedGroups.length; i++) {
+            if (savedGroups[i].name == name) {
+                e.sender.send("newGroup:error", "This group name already exists!");
+                return;
+            }
+        }
+
+        let allGroups = [];
+
+        savedGroups.forEach(savedGroup => {
+            allGroups.push(savedGroup);
+        });
+
+        allGroups.push(newGroup);
+
+        config.set("groups", allGroups);
+
+        e.sender.send("newGroup:complete", newGroup);
+    } else {
+        config.set("groups", newGroup);
+        e.sender.send("newGroup:complete", newGroup);
+    }
+}); 

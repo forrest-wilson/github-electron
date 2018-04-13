@@ -1,5 +1,20 @@
 <template class="template">
     <section id="repositoriesSection" class="nav-section section">
+        <div id="addGroupModal" class="add-group-modal">
+            <div class="field">
+                <div class="control">
+                    <input id="groupNameInput" class="input" type="text" placeholder="Group name">
+                </div>
+                <p id="newGroupError" class="help is-danger"></p>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button id="addGroup" class="button is-success">Create Group</button>
+                    <button id="cancelAddGroup" class="button is-danger">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <nav class="app-column static nav-bg">
             <section class="repo-section">
                 <div id="repositoriesNavItem" class="app-nav-item no-shrink selected" data-request="repositories">
@@ -8,21 +23,15 @@
                         <i class="fa fa-angle-right"></i>
                     </span>
                 </div>
+                
+                <div id="groups" class="groups"></div>
 
-                <div class="groups">
-                    <div class="group">
-                        <span class="group-title">Repository Groups</span>
-                        <span class="icon is-small">
-                            <i class="fa fa-plus-square-o"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="app-nav-item no-shrink bottom">
+                <div id="addButton" class="app-nav-item no-shrink bottom">
                     <span class="nav-title" style="text-align: center;">+</span>
                 </div>
             </section>
         </nav>
+
         <div class="app-column fit section is-showing">
             <div class="inner">
                 <header class="content">

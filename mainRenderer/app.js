@@ -5,6 +5,16 @@ const templateCompiler = require("./templateCompiler");
 
 $("#profileImage").attr("src", userProps.avatar_url);
 
+config.get("groups").forEach(group => {
+    let groupTemplate = `<div class="group">
+                            <span class="group-title">${group.name}</span>
+                            <span class="icon is-small">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </div>`;
+    $("#groups").append(groupTemplate);
+});
+
 //**** IPC ****//
 
 ipcRenderer.on("repo:response", (e, repos) => {
@@ -17,6 +27,25 @@ ipcRenderer.on("openSaveDialog:complete", (e, res) => {
 
 ipcRenderer.on("openSaveDialog:cancelled", () => {
     $(".clone-button.is-loading").removeClass("is-loading");
+});
+
+ipcRenderer.on("newGroup:complete", (e, group) => {
+    $("#newGroupError").text("");
+    
+    $("#groupNameInput").val("");
+    $("#addGroupModal").hide();
+
+    let groupTemplate = `<div class="group">
+                            <span class="group-title">${group.name}</span>
+                            <span class="icon is-small">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </div>`;
+    $("#groups").append(groupTemplate);
+});
+
+ipcRenderer.on("newGroup:error", (e, err) => {
+    $("#newGroupError").text(err);
 });
 
 //**** Click Event Handlers ****//
@@ -65,6 +94,20 @@ $(".navigator-icon").on("click", function(e) {
 
     // Persist the active navigator-icon
     config.set("activeNavigatorIcon", `${dataAttr}`);
+});
+
+$("#addButton").on("click", function() {
+    $("#addGroupModal").show();
+});
+
+$("#cancelAddGroup").on("click", function() {
+    $("#groupNameInput").val("");
+    $("#addGroupModal").hide();
+});
+
+$("#addGroup").on("click", function() {
+    let groupName = $("#groupNameInput").val();
+    ipcRenderer.send("newGroup", groupName);
 });
 
 //**** Load Triggers ****//
