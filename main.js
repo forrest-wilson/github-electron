@@ -10,7 +10,6 @@ const connection = new ElectronOnline();
 const notificationsSupported = Notification.isSupported();
 const electronOauth2 = require("electron-oauth2");
 const oauthConfig = require("./oauth");
-const _ = require("lodash");
 
 // Github token retrieval
 const windowParams = {
@@ -63,6 +62,8 @@ app.on("activate", () => {
     }
 });
 
+//**** IPC ****//
+
 // Sent from login.js
 ipcMain.on("github-oauth", () => {
     const accessOptions = {
@@ -84,56 +85,9 @@ ipcMain.on("github-oauth", () => {
         });
 });
 
-function repoCallback(state, repos, index, e) {
-    if (state && repos.length) {
-        let savedRepos = config.get("repos");
-        let savedReposClone = [];
-        let potentialNewItems = [];
-
-        if (savedRepos) {
-            savedRepos.forEach(savedRepo => {
-                savedReposClone.push(savedRepo);
-            });
-
-            repos.forEach(repo => {
-                savedReposClone.forEach((savedRepoClone, i) => {
-                    if (_.isEqual(repo.id, savedRepoClone.id)) {
-                        savedReposClone.splice(i, 1, repo);
-                    } else {
-                        potentialNewItems.push(repo);
-                    }
-                });
-            });
-
-            let uniqPotentialNewItems = _.uniq(potentialNewItems);
-
-            let total = _.uniq(savedReposClone.concat(_.uniq(uniqPotentialNewItems)));
-
-            config.set("repos", total);
-        } else {
-            console.log("There aren't an saved repos");
-            config.set("repos", repos);
-        }
-
-        let newIndex = index + 1;
-        netRequest.getRepos(e, newIndex, repoCallback);
-    }
-
-    if (state && !repos.length) {
-        loadingWindow.loadingWin.close();
-        mainWindow.createWindow();
-    }
-
-    if (!state) {
-        console.log("Loading from saved resources");
-        loadingWindow.loadingWin.close();
-        mainWindow.createWindow();
-    }
-}
-
 // Sent from app.js & loadingWindow.js
 ipcMain.on("repo", (e) => {
-    netRequest.getRepos(e, 1, repoCallback);
+    netRequest.getRepos(e, 1);
 });
 
 // Sent from loadingWindow.js
@@ -212,4 +166,4 @@ ipcMain.on("newGroup", (e, name) => {
         config.set("groups", [newGroup]);
         e.sender.send("newGroup:complete", newGroup);
     }
-}); 
+});
