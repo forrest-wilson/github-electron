@@ -1,4 +1,4 @@
-exports.compileRepos = (repos) => {
+exports.compileRepos = (repos, selector) => {
     console.log(repos);
 
     if (!repos.length) repos = [repos];
@@ -12,11 +12,26 @@ exports.compileRepos = (repos) => {
                                 </div>
                                 <button class="button is-success clone-button" data-cloneurl="${repo.clone_url}" data-reponame="${repo.name}" data-repouuid="${repo.id}">Clone Repo</button>
                             </div><hr>`;
-            $("#reposWrapper").append(template);
+            $(selector).append(template);
         }
     });
 };
 
 exports.compileProfile = (props) => {
     console.log(props);
+};
+
+exports.compileGroups = (groups, selector) => {
+    if (!groups.length) groups = [groups];
+
+    groups.forEach(group => {
+        const template = `<div class="group">
+                            <span class="group-title">${group.name}</span>
+                            <span class="icon is-small">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </div>`;
+
+        $(selector).append(template);
+    });
 };

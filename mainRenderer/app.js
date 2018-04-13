@@ -4,21 +4,19 @@ const userProps = config.get("userProps");
 const templateCompiler = require("./templateCompiler");
 
 $("#profileImage").attr("src", userProps.avatar_url);
+templateCompiler.compileGroups(config.get("groups"), "#groups");
 
-config.get("groups").forEach(group => {
-    let groupTemplate = `<div class="group">
-                            <span class="group-title">${group.name}</span>
-                            <span class="icon is-small">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
-                        </div>`;
-    $("#groups").append(groupTemplate);
-});
+//**** Helper Methods ****//
+
+function hideAddGroupModal() {
+    $("#groupNameInput").val("");
+    $("#addGroupModal").hide();
+}
 
 //**** IPC ****//
 
 ipcRenderer.on("repo:response", (e, repos) => {
-    templateCompiler.compileRepos(repos);
+    templateCompiler.compileRepos(repos, "#reposWrapper");
 });
 
 ipcRenderer.on("openSaveDialog:complete", (e, res) => {
@@ -31,17 +29,10 @@ ipcRenderer.on("openSaveDialog:cancelled", () => {
 
 ipcRenderer.on("newGroup:complete", (e, group) => {
     $("#newGroupError").text("");
-    
-    $("#groupNameInput").val("");
-    $("#addGroupModal").hide();
 
-    let groupTemplate = `<div class="group">
-                            <span class="group-title">${group.name}</span>
-                            <span class="icon is-small">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
-                        </div>`;
-    $("#groups").append(groupTemplate);
+    hideAddGroupModal();
+
+    templateCompiler.compileGroups(group, "#groups");
 });
 
 ipcRenderer.on("newGroup:error", (e, err) => {
@@ -57,15 +48,12 @@ $(".app-nav-item").on("click", function() {
     switch(dataRequest) {
         case "repositories":
             if (config.get("repos")) {
-                templateCompiler.compileRepos(config.get("repos"));
+                templateCompiler.compileRepos(config.get("repos"), "#reposWrapper");
             } else {
                 throw new Error("Error getting repos from persistent store");
             }
             break;
     }
-
-    // // Persist selected nav item
-    // config.set(navSelector, `${dataRequest}NavItem`);
 });
 
 $(document).on("click", ".clone-button", function(e) {
@@ -100,10 +88,7 @@ $("#addButton").on("click", function() {
     $("#addGroupModal").show();
 });
 
-$("#cancelAddGroup").on("click", function() {
-    $("#groupNameInput").val("");
-    $("#addGroupModal").hide();
-});
+$("#cancelAddGroup").on("click", hideAddGroupModal);
 
 $("#addGroup").on("click", function() {
     let groupName = $("#groupNameInput").val();
