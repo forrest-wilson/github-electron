@@ -209,7 +209,7 @@ ipcMain.on("newGroup", (e, name) => {
 
         e.sender.send("newGroup:complete", newGroup);
     } else {
-        config.set("groups", newGroup);
+        config.set("groups", [newGroup]);
         e.sender.send("newGroup:complete", newGroup);
     }
 }); 
