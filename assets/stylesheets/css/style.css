@@ -87,7 +87,8 @@ body {
     flex-shrink: 0; }
   .app-nav-item.bottom {
     justify-self: flex-end;
-    border-top: 2px solid #1e1e1e; }
+    border-top: 2px solid #1e1e1e;
+    padding: 10px; }
   .app-nav-item.selected, .app-nav-item:hover {
     background-color: #333333;
     cursor: pointer; }
@@ -103,6 +104,21 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   height: 100%; }
+
+.add-group-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 10px;
+  background-color: #323232;
+  -webkit-box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
+  box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 0 0 5px 5px;
+  display: none; }
 
 .groups {
   overflow-y: auto;
