@@ -5,6 +5,7 @@ const sass = require("gulp-sass");
 const autoprefixer = require("gulp-autoprefixer");
 const sourcemaps = require("gulp-sourcemaps");
 
+//**** Tasks ****//
 gulp.task("jshint", () => {
     return gulp.src(["**/*.js", "!node_modules/**"])
         .pipe(jshint())
