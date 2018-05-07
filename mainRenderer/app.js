@@ -52,19 +52,19 @@ ipcRenderer.on("newGroup:error", (e, err) => {
 
 //**** Click Event Handlers ****//
 
-$(".app-nav-item").on("click", function() {
-    let dataRequest = $(this).data("request");
-    console.log(`Selected data: ${dataRequest}`);
+$(document).on("click", ".group", function() {
+    // Class toggling
+    let group = $(this).attr("data-request");
 
-    switch(dataRequest) {
-        case "repositories":
-            if (config.get("repos")) {
-                templateCompiler.compileRepos(config.get("repos"), "#reposWrapper");
-            } else {
-                throw new Error("Error getting repos from persistent store");
-            }
-            break;
-    }
+    // Hide/show groups
+    $(".group-content").removeClass("is-showing");
+    $(`#${group}`).addClass("is-showing");
+
+    // Add/remove selected classes from correct nav items
+    $(".group").removeClass("selected");
+    $(this).addClass("selected");
+
+
 });
 
 $(document).on("click", ".clone-button", function(e) {
@@ -95,7 +95,7 @@ $(".navigator-icon").on("click", function(e) {
     config.set("activeNavigatorIcon", `${dataAttr}`);
 });
 
-$("#addButton").on("click", function() {
+$("#addButton").on("click", () => {
     $("#addGroupModal").show();
 });
 
