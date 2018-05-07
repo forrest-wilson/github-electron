@@ -2,10 +2,9 @@
 
 .section-navigator {
     width: 80px;
-    padding-top: 40px;
     background: $darkColor;
     z-index: 10;
-    box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
+    border-right: $border;
 
     .navigator-icon {
         width: 60px;
@@ -51,7 +50,7 @@
 
     &.bottom {
         justify-self: flex-end;
-        border-top: 2px solid $darkBorder;
+        border-top: $border;
         padding: 10px;
     }
 
@@ -62,7 +61,7 @@
     }
 
     &:first-child {
-        border-bottom: 2px solid $darkBorder;
+        border-bottom: $border;
     }
 }
 

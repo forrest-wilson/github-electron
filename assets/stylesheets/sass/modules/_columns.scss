@@ -1,5 +1,11 @@
+.app-toolbar {
+    height: 40px;
+    background-color: rgb(37, 37, 37);
+    border-bottom: $border;
+}
+
 .app-columns {
-    height: 100%;
+    height: calc(100% - 40px);
     display: flex;
 
     .app-column {
@@ -10,7 +16,7 @@
 
     .static {
         width: 250px;
-        border-right: 2px solid $darkBorder;
+        border-right: $border;
         flex-shrink: 0;
     }
 

@@ -8,8 +8,13 @@ body {
 ::selection {
   background: #c3ddff; }
 
+.app-toolbar {
+  height: 40px;
+  background-color: #252525;
+  border-bottom: 2px solid #1e1e1e; }
+
 .app-columns {
-  height: 100%;
+  height: calc(100% - 40px);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
@@ -35,11 +40,9 @@ body {
 
 .section-navigator {
   width: 80px;
-  padding-top: 40px;
   background: #252525;
   z-index: 10;
-  -webkit-box-shadow: 0 0 10px rgba(15, 15, 15, 0.75);
-  box-shadow: 0 0 10px rgba(15, 15, 15, 0.75); }
+  border-right: 2px solid #1e1e1e; }
   .section-navigator .navigator-icon {
     width: 60px;
     height: 60px;
