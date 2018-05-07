@@ -5,9 +5,16 @@ const templateCompiler = require("./templateCompiler");
 
 $("#profileImage").attr("src", userProps.avatar_url);
 
+// Gets all groups and appends them to the #groups element on page load
 let groups = config.get("groups");
 if (groups) {
     templateCompiler.compileGroups(groups, "#groups");
+}
+
+// Gets all repos and appends them to the #reposWrapper element on page load
+let allRepos = config.get("repos");
+if (allRepos) {
+    templateCompiler.compileRepos(allRepos, "#reposWrapper");
 }
 
 //**** Helper Methods ****//
