@@ -1,7 +1,7 @@
 exports.compileRepos = (repos, selector) => {
     console.log(repos);
 
-    if (!repos.length) repos = [repos];
+    if (!Array.isArray(repos)) repos = [repos];
 
     repos.forEach(repo => {
         if (!document.querySelector(`[data-repouuid="${repo.id}"]`)) {
