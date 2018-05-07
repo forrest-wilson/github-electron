@@ -85,6 +85,43 @@ $(document).on("click", ".group", function() {
     });
 });
 
+//**** Repo Dragging ****//
+
+$(document).on("dragover", ".group", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("drop", function(e) {
+    e.preventDefault();
+
+    if ($(e.target).hasClass("group")) {
+        let newRepoRef = e.dataTransfer.getData("id");
+        let groupID = $(e.target).attr("data-id");
+        let groups = config.get("groups");
+        let update = [];
+
+        groups.forEach(group => {
+            update.push(group);
+        });
+
+        console.log(update);
+
+        update.forEach(group => {
+            if (groupID == group.id) {
+                group.repoRef.push(parseInt(newRepoRef));
+            }
+        });
+
+        config.set("groups", update);
+    }
+});
+
+document.addEventListener("dragstart", function(e) {
+    if ($(e.srcElement).hasClass("repo")) {
+        e.dataTransfer.setData("id", $(e.srcElement).attr("data-repouuid"));
+    }
+});
+
 $(document).on("click", ".clone-button", function(e) {
     e.preventDefault();
     let repoName = $(this).data("reponame");
