@@ -137,11 +137,15 @@ ipcMain.on("openSaveDialog", (e, data) => {
 
 ipcMain.on("newGroup", (e, name) => {
     let savedGroups = config.get("groups");
+    let latestGroupID = config.get("latestGroupID");
 
     let newGroup = {
+        id: latestGroupID + 1,
         name: name,
         repoRef: []
     };
+
+    config.set("latestGroupID", latestGroupID + 1);
 
     if (savedGroups) {
         for (let i = 0; i < savedGroups.length; i++) {
@@ -164,6 +168,7 @@ ipcMain.on("newGroup", (e, name) => {
         e.sender.send("newGroup:complete", newGroup);
     } else {
         config.set("groups", [newGroup]);
+        config.set("latestGroupID", 0);
         e.sender.send("newGroup:complete", newGroup);
     }
 });

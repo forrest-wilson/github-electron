@@ -54,17 +54,35 @@ ipcRenderer.on("newGroup:error", (e, err) => {
 
 $(document).on("click", ".group", function() {
     // Class toggling
-    let group = $(this).attr("data-request");
+    let groupReq = $(this).attr("data-request");
 
     // Hide/show groups
     $(".group-content").removeClass("is-showing");
-    $(`#${group}`).addClass("is-showing");
+    $(`#${groupReq}`).addClass("is-showing");
 
     // Add/remove selected classes from correct nav items
     $(".group").removeClass("selected");
     $(this).addClass("selected");
 
+    let groupID = $(this).attr("data-id");
 
+    let groups = config.get("groups");
+
+    groups.forEach(group => {
+        if (group.id == groupID) {
+            let refs = group.repoRef;
+
+            if (refs.length > 0) {
+                refs.forEach(ref => {
+                    config.get("repos").forEach(repo => {
+                        if (repo.id == ref) {
+                            templateCompiler.compileRepos([repo], `#${groupReq}Repos`, `#${groupReq}`);
+                        }
+                    });
+                });
+            }
+        }
+    });
 });
 
 $(document).on("click", ".clone-button", function(e) {

@@ -1,10 +1,9 @@
-exports.compileRepos = (repos, selector) => {
-    console.log(repos);
-
+exports.compileRepos = (repos, selector, parent) => {
     if (!Array.isArray(repos)) repos = [repos];
+    if (parent == null) parent = "body";
 
     repos.forEach(repo => {
-        if (!document.querySelector(`[data-repouuid="${repo.id}"]`)) {
+        if (!document.querySelector(parent).querySelector(`[data-repouuid="${repo.id}"]`)) {
             const template = `<div class="repo content" data-repouuid="${repo.id}">
                                 <div class="details">
                                     <h2>${repo.name}</h2>
@@ -28,7 +27,7 @@ exports.compileGroups = (groups, selector) => {
     console.log(groups);
 
     groups.forEach(group => {
-        const template = `<div class="group" data-request="group${group.name.replace(/\s+/g, '')}">
+        const template = `<div class="group" data-request="group${group.name.replace(/\s+/g, '')}" data-id="${group.id}">
                             <span class="group-title">${group.name}</span>
                             <span class="icon is-small">
                                 <i class="fa fa-angle-right"></i>
