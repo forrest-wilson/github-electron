@@ -22,7 +22,7 @@ exports.compileProfile = (props) => {
 };
 
 exports.compileGroups = (groups, selector) => {
-    if (!groups.length) groups = [groups];
+    if (!Array.isArray(groups)) groups = [groups];
 
     groups.forEach(group => {
         const template = `<div class="group">
