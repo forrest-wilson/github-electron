@@ -107,6 +107,12 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   height: 100%; }
+  .repo-section .section-label {
+    padding: 5px 20px;
+    background-color: #2f2f2f;
+    font-size: 14px;
+    margin: 2px 0;
+    font-weight: bold; }
 
 .add-group-modal {
   position: absolute;
@@ -135,7 +141,11 @@ body {
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center; }
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
     .groups .group .group-title {
       -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -148,11 +158,15 @@ body {
       cursor: pointer; }
 
 .repo {
-  padding: 15px 0;
+  padding: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-user-drag: element; }
+  -webkit-user-drag: element;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 .details {
   -webkit-box-flex: 1;
