@@ -157,7 +157,17 @@ body {
       background-color: #333333;
       cursor: pointer; }
 
+.group-option {
+  color: white;
+  padding: 10px;
+  border-radius: 2.5px;
+  margin-bottom: 5px; }
+  .group-option:hover, .group-option.selected-group-option {
+    background-color: #787878;
+    cursor: pointer; }
+
 .repo {
+  position: relative;
   padding: 15px;
   display: -webkit-box;
   display: -ms-flexbox;

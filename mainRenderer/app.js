@@ -76,7 +76,7 @@ $(document).on("click", ".group", function() {
                 refs.forEach(ref => {
                     config.get("repos").forEach(repo => {
                         if (repo.id == ref) {
-                            templateCompiler.compileRepos([repo], `#${groupReq}Repos`, `#${groupReq}`);
+                            templateCompiler.compileRepos([repo], `#${groupReq}Repos`, `#${groupReq}`, true);
                         }
                     });
                 });
@@ -89,6 +89,24 @@ $(document).on("click", ".group", function() {
 
 $(document).on("dragover", ".group", function(e) {
     e.preventDefault();
+});
+
+$(document).on("dragenter", ".group", function(e) {
+    e.preventDefault();
+
+    if ($(e.currentTarget).hasClass("group") || $(e.currentTarget).hasClass("group-title")) {
+        console.log(e.currentTarget);
+        $(e.currentTarget).addClass("selected");
+    }
+});
+
+$(document).on("dragleave", ".group", function(e) {
+    e.preventDefault();
+
+    if ($(e.currentTarget).hasClass("group")) {
+        console.log(e);
+        // $(e.currentTarget).removeClass("selected");
+    }
 });
 
 document.addEventListener("drop", function(e) {
@@ -104,8 +122,6 @@ document.addEventListener("drop", function(e) {
             update.push(group);
         });
 
-        console.log(update);
-
         update.forEach(group => {
             if (groupID == group.id) {
                 group.repoRef.push(parseInt(newRepoRef));
@@ -113,6 +129,9 @@ document.addEventListener("drop", function(e) {
         });
 
         config.set("groups", update);
+
+        // Remove the selected class
+        $(e.target).removeClass("selected");
     }
 });
 
@@ -131,6 +150,67 @@ $(document).on("click", ".clone-button", function(e) {
     $(this).addClass("is-loading");
 
     ipcRenderer.send("openSaveDialog", {url: cloneUrl, name: repoName, uuid: repoUuid});
+});
+
+$(document).on("click", ".options-dropdown", function(e) {
+    e.stopPropagation();
+    $(this).toggleClass("is-active");
+});
+
+$(document).on("click", function() {
+    $(".options-dropdown").removeClass("is-active");
+});
+
+//**** Adding Repos to Groups modal management ****//
+
+$(document).on("click", ".open-add-repo-to-group-modal", function(e) {
+    e.stopPropagation();
+
+    templateCompiler.compileGroupList(config.get("groups"), "#addRepoToGroupBody", $(e.currentTarget).data("repouuid"));
+
+    $("#addRepoToGroupModal").addClass("is-active");
+});
+
+$(document).on("click", ".remove-repo-from-group", function(e) {
+    e.stopPropagation();
+
+    console.log(this);
+});
+
+$(document).on("click", ".group-option", function() {
+    $(".group-option").removeClass("selected-group-option");
+    $(this).addClass("selected-group-option");
+});
+
+$("#addRepoToGroup").on("click", function(e) {
+    let groupID = $(".group-option.selected-group-option").attr("data-groupid");
+    let repoID = $(".group-option.selected-group-option").attr("data-repouuid");
+    let groups = config.get("groups");
+    let update = [];
+
+    groups.forEach(group => {
+        update.push(group);
+    });
+
+    for (let i = 0; i < update.length; i++) {
+        if (update[i].id == groupID) {
+            // Add repo id to group
+            update[i].repoRef.push(parseInt(repoID));
+
+            config.set("groups", update);
+
+            $("#addRepoToGroupBody").empty();
+            $("#addRepoToGroupModal").removeClass("is-active");
+
+            return;
+        }
+    }
+});
+
+$("#cancelAddRepoToGroup").on("click", function() {
+    $("#addRepoToGroupModal").removeClass("is-active");
+
+    $("#addRepoToGroupBody").empty();
 });
 
 $(".navigator-icon").on("click", function(e) {

@@ -117,3 +117,16 @@
         }
     }
 }
+
+.group-option {
+    color: white;
+    padding: 10px;
+    border-radius: 2.5px;
+    margin-bottom: 5px;
+
+    &:hover,
+    &.selected-group-option {
+        background-color: rgb(120, 120, 120);
+        cursor: pointer;
+    }
+}

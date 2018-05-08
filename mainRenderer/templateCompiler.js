@@ -1,6 +1,5 @@
-exports.compileRepos = (repos, selector, parent) => {
+exports.compileRepos = (repos, selector, parent = "body", custom = false) => {
     if (!Array.isArray(repos)) repos = [repos];
-    if (parent == null) parent = "body";
 
     repos.forEach(repo => {
         if (!document.querySelector(parent).querySelector(`[data-repouuid="${repo.id}"]`)) {
@@ -10,7 +9,26 @@ exports.compileRepos = (repos, selector, parent) => {
                                     <span>${repo.language}</span>
                                 </div>
                                 <button class="button is-success clone-button" data-cloneurl="${repo.clone_url}" data-reponame="${repo.name}" data-repouuid="${repo.id}">Clone Repo</button>
-                            </div><hr>`;
+                                <div class="options-dropdown dropdown is-right" style="margin-left: 15px">
+                                    <div class="dropdown-trigger" style="display: flex; align-items: center;">
+                                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                            <span class="icon is-small">
+                                                <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                        <div class="dropdown-content">
+                                            <a class="dropdown-item open-add-repo-to-group-modal" data-repouuid="${repo.id}">Add Repo to Group</a>
+                                            ${custom ? `
+                                            <a class="dropdown-item remove-repo-from-group" data-repouuid="${repo.id}">Remove this Repo from the Group</a>
+                                            ` : ``}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr>`;
 
             $(selector).append(template);
         }
@@ -23,8 +41,6 @@ exports.compileProfile = (props) => {
 
 exports.compileGroups = (groups, selector) => {
     if (!Array.isArray(groups)) groups = [groups];
-
-    console.log(groups);
 
     groups.forEach(group => {
         const template = `<div class="group" data-request="group${group.name.replace(/\s+/g, '')}" data-id="${group.id}">
@@ -59,5 +75,19 @@ exports.compileGroup = (groups, selector) => {
                         </div>`;
 
         $(selector).append(template);
+    });
+};
+
+exports.compileGroupList = (groups, selector, repoID) => {
+    if (!Array.isArray(groups)) groups = [groups];
+
+    groups.forEach(group => {
+        if (!document.querySelector(selector).querySelector(`[data-id="${group.id}"]`)) {
+            const template = `<div class="group-option" data-groupid="${group.id}" data-repouuid="${repoID}">
+                                <p>${group.name}</p>
+                            </div>`;
+
+            $(selector).append(template);
+        }
     });
 };

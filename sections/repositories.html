@@ -1,5 +1,6 @@
 <template class="template">
     <section id="repositoriesSection" class="nav-section section">
+        <!-- Add Group Modal Window -->
         <div id="addGroupModal" class="add-group-modal">
             <div class="field">
                 <div class="control">
@@ -11,6 +12,24 @@
                 <div class="control">
                     <button id="addGroup" class="button is-success">Create Group</button>
                     <button id="cancelAddGroup" class="button is-danger">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Repo to Group Modal Window -->
+        <div id="addRepoToGroupModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <!-- Any other Bulma elements you want -->
+                <div class="modal-card">
+                    <div class="modal-card-head" style="background-color: rgb(37, 37, 37); border-bottom: 1px solid #1e1e1e;">
+                        <p class="modal-card-title" style="color: white;">Please choose a group:</p>
+                    </div>
+                    <div id="addRepoToGroupBody" class="modal-card-body" style="background-color: rgb(57, 57, 57);"></div>
+                    <div class="modal-card-foot" style="background-color: rgb(37, 37, 37); border-top: 1px solid #1e1e1e;">
+                        <button id="addRepoToGroup" class="button is-success">Add to Group</button>
+                        <button id="cancelAddRepoToGroup" class="button is-danger">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
